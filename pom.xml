@@ -110,28 +110,7 @@
     </pluginRepositories>
 
     <repositories>
-        <!-- Adding snapshots repository which is required to get the GWT SNAPSHOT libraries -->
-<!--
-        <repository>
-            <id>snapshots-repo</id>
-            <url>https://oss.sonatype.org/content/repositories/google-snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
--->
-        <!-- For JFoenix -->
-<!--
-        <repository>
-            <id>snapshots</id>
-            <url>https://oss.sonatype.org/content/groups/public</url>
-            <releases><enabled>false</enabled></releases>
-            <snapshots><enabled>true</enabled></snapshots>
-        </repository>
--->
+
         <!-- For Gluon -->
         <repository>
             <id>Gluon</id>
@@ -141,6 +120,15 @@
         </repository>
 
     </repositories>
+
+    <distributionManagement>
+
+        <snapshotRepository>
+            <id>nexus-deploy</id>
+            <url>http://localhost:8081/repository/webfx-snapshots/</url>
+        </snapshotRepository>
+
+    </distributionManagement>
 
     <dependencyManagement>
         <dependencies>
