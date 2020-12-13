@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.webfx</groupId>
+    <groupId>dev.webfx</groupId>
     <artifactId>webfx-parent</artifactId>
     <version>0.1.0-SNAPSHOT</version>
 
@@ -12,7 +12,7 @@
 
     <properties>
         <!-- Webfx groupId & version -->
-        <webfx.groupId>org.webfx</webfx.groupId>
+        <webfx.groupId>dev.webfx</webfx.groupId>
         <webfx.version>0.1.0-SNAPSHOT</webfx.version>
 
         <webfx.mainClass>webfx.platform.shared.services.appcontainer.ApplicationContainer</webfx.mainClass>
@@ -84,8 +84,8 @@
         <plugin.javapackager.displayName>WebFx Application</plugin.javapackager.displayName>
         <plugin.javapackager.url>TBD</plugin.javapackager.url>
         <plugin.javapackager.organizationName>WebFx</plugin.javapackager.organizationName>
-        <plugin.javapackager.organizationUrl>https://webfx-project.org</plugin.javapackager.organizationUrl>
-        <plugin.javapackager.organizationEmail>info@webfx-project.org</plugin.javapackager.organizationEmail>
+        <plugin.javapackager.organizationUrl>https://webfx.dev</plugin.javapackager.organizationUrl>
+        <plugin.javapackager.organizationEmail>info@webfx.dev</plugin.javapackager.organizationEmail>
 
         <application.name>${project.name}</application.name>
         <application.version>${project.version}</application.version>
