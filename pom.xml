@@ -123,9 +123,10 @@
 
     <distributionManagement>
 
+        <!-- To tell mvn deploy to deploy snapshots to Sonatype repository  -->
         <snapshotRepository>
-            <id>nexus-deploy</id>
-            <url>http://localhost:8081/repository/webfx-snapshots/</url>
+            <id>sonatype-deploy</id> <!-- server username & password must be set in settings.xml -->
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
 
     </distributionManagement>
