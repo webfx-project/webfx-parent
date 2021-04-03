@@ -11,10 +11,6 @@
     <packaging>pom</packaging>
 
     <properties>
-        <!-- Webfx groupId & version -->
-        <webfx.groupId>dev.webfx</webfx.groupId>
-        <webfx.version>0.1.0-SNAPSHOT</webfx.version>
-
         <webfx.mainClass>dev.webfx.platform.shared.services.appcontainer.ApplicationContainer</webfx.mainClass>
         <webfx.mainModule>webfx.platform.shared.services.appcontainer</webfx.mainModule>
 
@@ -28,12 +24,6 @@
         <maven.compiler.target>${java.level}</maven.compiler.target>
         <maven.compiler.release>${java.level}</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-        <!-- libraries versions -->
-        <lib.openjfx.version>16</lib.openjfx.version>
-        <lib.gwt.version>2.9.0</lib.gwt.version> <!-- can be switched to HEAD-SNAPSHOT on development machines to test the latest GWT version -->
-        <lib.elemental2.groupId>com.google.elemental2</lib.elemental2.groupId>
-        <lib.elemental2.version>1.1.0</lib.elemental2.version>
 
         <!-- Maven plugins versions -->
         <plugin.compiler.version>3.8.1</plugin.compiler.version>
@@ -114,50 +104,6 @@
         </snapshotRepository>
 
     </distributionManagement>
-
-    <dependencyManagement>
-        <dependencies>
-
-            <!--
-             ***************************************************************
-             * Libraries required for the GWT Platform (webfx-platform-gwt) *
-             ***************************************************************
-             -->
-
-            <dependency>
-                <groupId>com.google.gwt</groupId>
-                <artifactId>gwt</artifactId>
-                <version>${lib.gwt.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>javax.validation</groupId>
-                        <artifactId>validation-api</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
-            <dependency>
-                <groupId>${lib.elemental2.groupId}</groupId>
-                <artifactId>elemental2-core</artifactId>
-                <version>${lib.elemental2.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${lib.elemental2.groupId}</groupId>
-                <artifactId>elemental2-dom</artifactId>
-                <version>${lib.elemental2.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${lib.elemental2.groupId}</groupId>
-                <artifactId>elemental2-svg</artifactId>
-                <version>${lib.elemental2.version}</version>
-            </dependency>
-
-        </dependencies>
-    </dependencyManagement>
 
     <build>
 
