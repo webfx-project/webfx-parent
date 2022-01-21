@@ -34,7 +34,7 @@
 
         <!-- Third-party plugins versions -->
         <plugin.gwt.version>1.0.0</plugin.gwt.version>
-        <plugin.gluon.version>0.1.35</plugin.gluon.version>
+        <plugin.gluon.version>1.0.11</plugin.gluon.version>
         <plugin.javapackager.version>1.4.2</plugin.javapackager.version>
         <plugin.javafx.version>0.0.3</plugin.javafx.version>
 
@@ -293,7 +293,7 @@
                  -->
                 <plugin>
                     <groupId>com.gluonhq</groupId>
-                    <artifactId>client-maven-plugin</artifactId>
+                    <artifactId>gluonfx-maven-plugin</artifactId>
                     <version>${plugin.gluon.version}</version>
                     <configuration>
                         <target>${plugin.gluon.param.target}</target>
