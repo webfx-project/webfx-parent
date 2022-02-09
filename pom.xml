@@ -35,7 +35,7 @@
         <!-- Third-party plugins versions -->
         <plugin.gwt.version>1.0.0</plugin.gwt.version>
         <plugin.gluon.version>1.0.11</plugin.gluon.version>
-        <plugin.javapackager.version>1.4.2</plugin.javapackager.version>
+        <plugin.javapackager.version>1.6.2</plugin.javapackager.version>
         <plugin.javafx.version>0.0.3</plugin.javafx.version>
 
         <!-- Plugin parameters with default values or set to TBD (To Be Defined) by any child module using the plugin -->
