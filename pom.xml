@@ -14,10 +14,13 @@
         <webfx.mainClass>dev.webfx.platform.shared.services.boot.ApplicationBooter</webfx.mainClass>
         <webfx.mainModule>webfx.platform.shared.services.boot</webfx.mainModule>
 
-        <!-- java version -->
+        <!-- Java version -->
         <java.version>11</java.version>
         <java.level>${java.version}</java.level>
         <gwt.sourceLevel>1.${java.version}</gwt.sourceLevel>
+
+        <!-- OpenJFX version -->
+        <openjfx.version>17.0.2</openjfx.version>
 
         <!-- Applying compiler settings -->
         <maven.compiler.source>${java.level}</maven.compiler.source>
@@ -81,7 +84,38 @@
         <!-- Will be passed to GWT compiler so that the java code can get its value using System.getProperty("build.timestamp") -->
         <maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ss'.000'X</maven.build.timestamp.format>
         <application.build.timestamp>${maven.build.timestamp}</application.build.timestamp>
+
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-base</artifactId>
+                <version>${openjfx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-graphics</artifactId>
+                <version>${openjfx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-controls</artifactId>
+                <version>${openjfx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-web</artifactId>
+                <version>${openjfx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-media</artifactId>
+                <version>${openjfx.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <pluginRepositories>
         <!-- Adding Snapshots repository which is required to get the GWT 2.8.1-SNAPSHOT Maven plugin -->
@@ -361,7 +395,7 @@
 
                 <!--
                  ********************************************************
-                 * JavaFx plugin configuration (jlink Image generation) *
+                 * JavaFX plugin configuration (jlink Image generation) *
                  ********************************************************
                  -->
                 <plugin>
@@ -369,7 +403,6 @@
                     <artifactId>javafx-maven-plugin</artifactId>
                     <version>${plugin.javafx.version}</version>
                     <configuration>
-                        <release>${maven.compiler.release}</release>
                         <jlinkImageName>jlinkImage</jlinkImageName>
                         <launcher>launcher</launcher>
                         <mainClass>${webfx.mainModule}/${webfx.mainClass}</mainClass>
