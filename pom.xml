@@ -426,9 +426,25 @@
             </properties>
         </profile>
 
-        <!-- Attaching webfx.xml (if present) to the artifact in its Maven repository -->
         <profile>
-            <id>attach-webfx-xml</id>
+            <id>auto-attach-sources</id>
+            <activation>
+                <file>
+                    <exists>src</exists>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-source-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Automatically attach webfx.xml (if present) to the artifact in its Maven repository -->
+        <profile>
+            <id>auto-attach-webfx-xml</id>
             <activation>
                 <file>
                     <exists>webfx.xml</exists>
