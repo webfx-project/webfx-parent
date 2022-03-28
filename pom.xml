@@ -19,14 +19,23 @@
         <java.level>${java.version}</java.level>
         <gwt.sourceLevel>1.${java.version}</gwt.sourceLevel>
 
-        <!-- OpenJFX version -->
-        <openjfx.version>17.0.2</openjfx.version>
-
         <!-- Applying compiler settings -->
         <maven.compiler.source>${java.level}</maven.compiler.source>
         <maven.compiler.target>${java.level}</maven.compiler.target>
         <maven.compiler.release>${java.level}</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- OpenJFX version -->
+        <openjfx.version>17.0.2</openjfx.version>
+
+        <!-- GWT version -->
+        <gwt.version>2.9.0</gwt.version>
+
+        <!-- Elemental2 version (GWT extension exposing browser APIs directly from Java) -->
+        <elemental2.version>1.1.0</elemental2.version>
+
+        <!-- GWT-time version (GWT library to emulate java.time - not supported by default by GWT) -->
+        <gwttime.version>2.0.7</gwttime.version>
 
         <!-- Maven minimum required version -->
         <maven.min.version>3.3.1</maven.min.version>
@@ -88,7 +97,10 @@
     </properties>
 
     <dependencyManagement>
+
         <dependencies>
+
+            <!-- Setting version for OpenJFX modules -->
             <dependency>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-base</artifactId>
@@ -114,7 +126,49 @@
                 <artifactId>javafx-media</artifactId>
                 <version>${openjfx.version}</version>
             </dependency>
+
+            <!-- Setting version for GWT modules -->
+            <dependency>
+                <groupId>com.google.gwt</groupId>
+                <artifactId>gwt-user</artifactId>
+                <version>${gwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.gwt</groupId>
+                <artifactId>gwt-dev</artifactId>
+                <version>${gwt.version}</version>
+            </dependency>
+
+            <!-- Setting version for Elemental2 modules -->
+            <dependency>
+                <groupId>com.google.elemental2</groupId>
+                <artifactId>elemental2-core</artifactId>
+                <version>${elemental2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.elemental2</groupId>
+                <artifactId>elemental2-dom</artifactId>
+                <version>${elemental2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.elemental2</groupId>
+                <artifactId>elemental2-svg</artifactId>
+                <version>${elemental2.version}</version>
+            </dependency>
+
+            <!-- Setting version for GWT-time modules -->
+            <dependency>
+                <groupId>org.jresearch.gwt.time</groupId>
+                <artifactId>org.jresearch.gwt.time</artifactId>
+                <version>${gwttime.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jresearch.gwt.time</groupId>
+                <artifactId>org.jresearch.gwt.time.tzdb</artifactId>
+                <version>${gwttime.version}</version>
+            </dependency>
         </dependencies>
+
     </dependencyManagement>
 
     <pluginRepositories>
