@@ -56,7 +56,7 @@
         <!-- Third-party plugins versions -->
         <plugin.buildhelper.version>3.3.0</plugin.buildhelper.version>
         <plugin.gwt.version>1.0.0</plugin.gwt.version>
-        <plugin.gluon.version>1.0.12</plugin.gluon.version>
+        <plugin.gluonfx.version>1.0.13</plugin.gluonfx.version>
         <plugin.javapackager.version>1.6.5</plugin.javapackager.version>
         <plugin.javafx.version>0.0.8</plugin.javafx.version>
 
@@ -69,13 +69,12 @@
         <plugin.dependency.param.unpack-classes.outputDirectory>${project.build.outputDirectory}</plugin.dependency.param.unpack-classes.outputDirectory>
         <plugin.dependency.param.copy-libs.phase>validate</plugin.dependency.param.copy-libs.phase>
         <plugin.shade.param.fat.phase>package</plugin.shade.param.fat.phase>
-        <plugin.antrun.param.j2objc.phase>compile</plugin.antrun.param.j2objc.phase>
         <plugin.gwt.param.skipCompilation>true</plugin.gwt.param.skipCompilation>
         <plugin.gwt.param.draftCompile>false</plugin.gwt.param.draftCompile>
         <plugin.gwt.param.optimize>9</plugin.gwt.param.optimize>
         <plugin.gwt.param.module>${project.artifactId}</plugin.gwt.param.module>
-        <plugin.gluon.param.target>TBD</plugin.gluon.param.target>
-        <plugin.gluon.param.mainClass>${webfx.mainClass}</plugin.gluon.param.mainClass>
+        <plugin.gluonfx.param.target>TBD</plugin.gluonfx.param.target>
+        <plugin.gluonfx.param.mainClass>${webfx.mainClass}</plugin.gluonfx.param.mainClass>
         <plugin.javapackager.name>WebFxApp</plugin.javapackager.name>
         <plugin.javapackager.displayName>WebFX Application</plugin.javapackager.displayName>
         <plugin.javapackager.url>TBD</plugin.javapackager.url>
@@ -401,10 +400,10 @@
                 <plugin>
                     <groupId>com.gluonhq</groupId>
                     <artifactId>gluonfx-maven-plugin</artifactId>
-                    <version>${plugin.gluon.version}</version>
+                    <version>${plugin.gluonfx.version}</version>
                     <configuration>
-                        <target>${plugin.gluon.param.target}</target>
-                        <mainClass>${plugin.gluon.param.mainClass}</mainClass>
+                        <target>${plugin.gluonfx.param.target}</target>
+                        <mainClass>${plugin.gluonfx.param.mainClass}</mainClass>
                         <nativeImageArgs>
                             <!-- SL4J -->
                             <arg>--allow-incomplete-classpath</arg>
