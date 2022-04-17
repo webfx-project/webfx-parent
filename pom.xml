@@ -494,21 +494,21 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <plugin.gluon.param.target>host</plugin.gluon.param.target>
+                <plugin.gluonfx.param.target>host</plugin.gluonfx.param.target>
             </properties>
         </profile>
 
         <profile>
             <id>gluon-ios</id>
             <properties>
-                <plugin.gluon.param.target>ios</plugin.gluon.param.target>
+                <plugin.gluonfx.param.target>ios</plugin.gluonfx.param.target>
             </properties>
         </profile>
 
         <profile>
             <id>gluon-android</id>
             <properties>
-                <plugin.gluon.param.target>android</plugin.gluon.param.target>
+                <plugin.gluonfx.param.target>android</plugin.gluonfx.param.target>
             </properties>
         </profile>
 
