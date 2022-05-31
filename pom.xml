@@ -57,7 +57,7 @@
         <plugin.buildhelper.version>3.3.0</plugin.buildhelper.version>
         <plugin.gwt.version>1.0.0</plugin.gwt.version>
         <plugin.gluonfx.version>1.0.13</plugin.gluonfx.version>
-        <plugin.javapackager.version>1.6.5</plugin.javapackager.version>
+        <plugin.javapackager.version>1.6.6</plugin.javapackager.version>
         <plugin.javafx.version>0.0.8</plugin.javafx.version>
 
         <!-- Plugin parameters with default values or set to TBD (To Be Defined) by any child module using the plugin -->
@@ -431,6 +431,9 @@
                             <configuration>
                                 <!-- mandatory -->
                                 <mainClass>${webfx.mainClass}</mainClass>
+<!--
+                                <runnableJar>${project.build.directory}/${project.artifactId}-${project.version}-fat.jar</runnableJar>
+-->
                                 <!-- optional -->
                                 <bundleJre>true</bundleJre>
                                 <name>${plugin.javapackager.name}</name>
@@ -490,9 +493,6 @@
 
         <profile>
             <id>gluon-desktop</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <properties>
                 <plugin.gluonfx.param.target>host</plugin.gluonfx.param.target>
             </properties>
