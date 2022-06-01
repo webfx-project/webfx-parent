@@ -485,7 +485,6 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-
             <properties>
                 <plugin.gwt.param.skipCompilation>false</plugin.gwt.param.skipCompilation>
             </properties>
@@ -497,7 +496,6 @@
                 <plugin.gluonfx.param.target>host</plugin.gluonfx.param.target>
             </properties>
         </profile>
-
         <profile>
             <id>gluon-ios</id>
             <properties>
@@ -567,7 +565,7 @@
         </profile>
 
         <profile>
-            <id>auto-compile-gwt</id>
+            <id>auto-plugin-gwt</id>
             <activation>
                 <file>
                     <exists>src/main/module.gwt.xml</exists>
@@ -575,16 +573,30 @@
             </activation>
             <build>
                 <plugins>
-
                     <!-- Calling the GWT maven plugin to compile the gwt module into javascript -->
                     <plugin>
                         <groupId>net.ltgt.gwt.maven</groupId>
                         <artifactId>gwt-maven-plugin</artifactId>
                     </plugin>
-
                 </plugins>
             </build>
+        </profile>
 
+        <profile>
+            <id>auto-plugin-gluon</id>
+            <activation>
+                <file>
+                    <exists>src/main/graalvm_conf</exists>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.gluonhq</groupId>
+                        <artifactId>gluonfx-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
 
     </profiles>
