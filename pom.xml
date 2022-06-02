@@ -431,9 +431,7 @@
                             <configuration>
                                 <!-- mandatory -->
                                 <mainClass>${webfx.mainClass}</mainClass>
-<!--
                                 <runnableJar>${project.build.directory}/${project.artifactId}-${project.version}-fat.jar</runnableJar>
--->
                                 <!-- optional -->
                                 <bundleJre>true</bundleJre>
                                 <name>${plugin.javapackager.name}</name>
@@ -566,6 +564,7 @@
 
         <profile>
             <id>auto-plugin-gwt</id>
+            <!-- Recognizing an executable gwt module by the presence of a GWT module file -->
             <activation>
                 <file>
                     <exists>src/main/module.gwt.xml</exists>
@@ -584,6 +583,7 @@
 
         <profile>
             <id>auto-plugin-gluon</id>
+            <!-- Recognizing an executable gluon module by the presence of a GraalVM conf folder -->
             <activation>
                 <file>
                     <exists>src/main/graalvm_conf</exists>
