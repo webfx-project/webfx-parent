@@ -75,6 +75,8 @@
         <plugin.gwt.param.module>${project.artifactId}</plugin.gwt.param.module>
         <plugin.gluonfx.param.target>TBD</plugin.gluonfx.param.target>
         <plugin.gluonfx.param.mainClass>${webfx.mainClass}</plugin.gluonfx.param.mainClass>
+        <plugin.javapackager.mainClass>${webfx.mainClass}</plugin.javapackager.mainClass>
+        <plugin.javapackager.runnableJar>${project.build.directory}/${project.artifactId}-${project.version}-fat.jar</plugin.javapackager.runnableJar>
         <plugin.javapackager.name>WebFxApp</plugin.javapackager.name>
         <plugin.javapackager.displayName>WebFX Application</plugin.javapackager.displayName>
         <plugin.javapackager.url>TBD</plugin.javapackager.url>
@@ -430,8 +432,8 @@
                             </goals>
                             <configuration>
                                 <!-- mandatory -->
-                                <mainClass>${webfx.mainClass}</mainClass>
-                                <runnableJar>${project.build.directory}/${project.artifactId}-${project.version}-fat.jar</runnableJar>
+                                <mainClass>${plugin.javapackager.mainClass}</mainClass>
+                                <runnableJar>${plugin.javapackager.runnableJar}</runnableJar>
                                 <!-- optional -->
                                 <bundleJre>true</bundleJre>
                                 <name>${plugin.javapackager.name}</name>
