@@ -29,7 +29,7 @@
         <openjfx.version>18.0.1</openjfx.version>
 
         <!-- GWT version -->
-        <gwt.version>2.9.0</gwt.version>
+        <gwt.version>2.10.0</gwt.version>
 
         <!-- Elemental2 version (GWT extension exposing browser APIs directly from Java) -->
         <elemental2.version>1.1.0</elemental2.version>
@@ -55,7 +55,7 @@
 
         <!-- Third-party plugins versions -->
         <plugin.buildhelper.version>3.3.0</plugin.buildhelper.version>
-        <plugin.gwt.version>1.0.0</plugin.gwt.version>
+        <plugin.gwt.version>1.0.1</plugin.gwt.version>
         <plugin.gluonfx.version>1.0.13</plugin.gluonfx.version>
         <plugin.javapackager.version>1.6.6</plugin.javapackager.version>
         <plugin.javafx.version>0.0.8</plugin.javafx.version>
