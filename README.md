@@ -1,1 +1,1 @@
-# The base parent pom for WebFx projects
+# The base parent pom for WebFX projects
