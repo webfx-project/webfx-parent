@@ -57,7 +57,7 @@
         <plugin.buildhelper.version>3.3.0</plugin.buildhelper.version>
         <plugin.gwt.version>1.0.1</plugin.gwt.version>
         <plugin.gluonfx.version>1.0.14</plugin.gluonfx.version>
-        <plugin.javapackager.version>1.6.6</plugin.javapackager.version>
+        <plugin.javapackager.version>1.6.7</plugin.javapackager.version>
         <plugin.javafx.version>0.0.8</plugin.javafx.version>
 
         <!-- Plugin parameters with default values or set to TBD (To Be Defined) by any child module using the plugin -->
