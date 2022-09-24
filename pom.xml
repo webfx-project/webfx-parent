@@ -35,7 +35,7 @@
         <elemental2.version>1.1.0</elemental2.version>
 
         <!-- GWT-time version (GWT library to emulate java.time - not supported by default by GWT) -->
-        <gwttime.version>2.0.8</gwttime.version>
+        <gwttime.version>2.0.9</gwttime.version>
 
         <teavm.version>0.7.0</teavm.version>
         <vertx.version>4.3.3</vertx.version>
