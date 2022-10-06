@@ -38,7 +38,7 @@
         <gwttime.version>2.0.9</gwttime.version>
 
         <teavm.version>0.7.0</teavm.version>
-        <vertx.version>4.3.3</vertx.version>
+        <vertx.version>4.3.4</vertx.version>
 
         <!-- Maven minimum required version -->
         <maven.min.version>3.3.1</maven.min.version>
