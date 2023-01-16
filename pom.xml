@@ -474,7 +474,6 @@
                     <configuration>
                         <target>${plugin.gluonfx.param.target}</target>
                         <mainClass>${plugin.gluonfx.param.mainClass}</mainClass>
-                        <resourcesList>.*\\.mp3$</resourcesList>
                         <nativeImageArgs>
                             <!-- SL4J -->
                             <arg>--allow-incomplete-classpath</arg>
