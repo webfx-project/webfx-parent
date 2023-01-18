@@ -59,7 +59,7 @@
         <!-- Third-party plugins versions -->
         <plugin.buildhelper.version>3.3.0</plugin.buildhelper.version>
         <plugin.gwt.version>1.0.1</plugin.gwt.version>
-        <plugin.gluonfx.version>1.0.15</plugin.gluonfx.version>
+        <plugin.gluonfx.version>1.0.16</plugin.gluonfx.version>
         <plugin.javapackager.version>1.6.7</plugin.javapackager.version>
         <plugin.javafx.version>0.0.8</plugin.javafx.version>
 
