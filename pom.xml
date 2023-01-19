@@ -482,6 +482,8 @@
                         <!-- Release configuration for GitHub workflows -->
                         <releaseConfiguration>
                             <!-- Android -->
+                            <versionCode>${env.GLUON_ANDROID_VERSION_CODE}</versionCode>
+                            <versionName>${env.GLUON_ANDROID_VERSION_NAME}</versionName>
                             <providedKeyStorePath>${env.GLUON_ANDROID_KEYSTOREPATH}</providedKeyStorePath>
                             <providedKeyStorePassword>${env.GLUON_ANDROID_KEYSTORE_PASSWORD}</providedKeyStorePassword>
                             <providedKeyAlias>${env.GLUON_ANDROID_KEYALIAS}</providedKeyAlias>
