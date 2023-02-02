@@ -38,6 +38,7 @@
         <gwttime.version>2.0.10</gwttime.version>
 
         <teavm.version>0.7.0</teavm.version>
+        <gluon.attach.version>4.0.16</gluon.attach.version>
         <vertx.version>4.3.7</vertx.version>
 
         <!-- Maven minimum required version -->
@@ -191,36 +192,56 @@
                 <version>${gwttime.version}</version>
             </dependency>
 
+            <!-- Setting version for TeaVM modules -->
             <dependency>
                 <groupId>org.teavm</groupId>
                 <artifactId>teavm-interop</artifactId>
                 <version>${teavm.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.teavm</groupId>
                 <artifactId>teavm-jso</artifactId>
                 <version>${teavm.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.teavm</groupId>
                 <artifactId>teavm-jso-apis</artifactId>
                 <version>${teavm.version}</version>
             </dependency>
 
+            <!-- Setting version for Gluon Attach modules -->
+            <dependency>
+                <groupId>com.gluonhq.attach</groupId>
+                <artifactId>audio</artifactId>
+                <version>${gluon.attach.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.gluonhq.attach</groupId>
+                <artifactId>storage</artifactId>
+                <version>${gluon.attach.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.gluonhq.attach</groupId>
+                <artifactId>lifecycle</artifactId>
+                <version>${gluon.attach.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.gluonhq.attach</groupId>
+                <artifactId>util</artifactId>
+                <version>${gluon.attach.version}</version>
+            </dependency>
+
+            <!-- Setting version for Vert.x modules -->
             <dependency>
                 <groupId>io.vertx</groupId>
                 <artifactId>vertx-core</artifactId>
                 <version>${vertx.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>io.vertx</groupId>
                 <artifactId>vertx-web</artifactId>
                 <version>${vertx.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>io.vertx</groupId>
                 <artifactId>vertx-bridge-common</artifactId>
@@ -481,6 +502,7 @@
                         </nativeImageArgs>
                         <!-- Release configuration for GitHub workflows -->
                         <releaseConfiguration>
+                            <!-- iOS -->
                             <!-- Android -->
                             <versionCode>${env.GLUON_ANDROID_VERSION_CODE}</versionCode>
                             <versionName>${env.GLUON_ANDROID_VERSION_NAME}</versionName>
