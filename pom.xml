@@ -39,7 +39,7 @@
 
         <teavm.version>0.7.0</teavm.version>
         <gluon.attach.version>4.0.16</gluon.attach.version>
-        <vertx.version>4.3.7</vertx.version>
+        <vertx.version>4.3.8</vertx.version>
 
         <!-- Maven minimum required version -->
         <maven.min.version>3.3.1</maven.min.version>
