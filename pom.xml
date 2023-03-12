@@ -37,7 +37,7 @@
         <!-- GWT-time version (GWT library to emulate java.time - not supported by default by GWT) -->
         <gwttime.version>2.0.10</gwttime.version>
 
-        <teavm.version>0.7.0</teavm.version>
+        <teavm.version>0.8.0</teavm.version>
         <gluon.attach.version>4.0.16</gluon.attach.version>
         <vertx.version>4.4.0</vertx.version>
 
