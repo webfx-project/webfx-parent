@@ -38,7 +38,7 @@
         <gwttime.version>2.0.10</gwttime.version>
 
         <teavm.version>0.8.0</teavm.version>
-        <gluon.attach.version>4.0.17-SNAPSHOT</gluon.attach.version>
+        <gluon.attach.version>4.0.17</gluon.attach.version>
         <vertx.version>4.4.0</vertx.version>
 
         <!-- Maven minimum required version -->
@@ -60,7 +60,7 @@
         <!-- Third-party plugins versions -->
         <plugin.buildhelper.version>3.3.0</plugin.buildhelper.version>
         <plugin.gwt.version>1.0.1</plugin.gwt.version>
-        <plugin.gluonfx.version>1.0.17-SNAPSHOT</plugin.gluonfx.version>
+        <plugin.gluonfx.version>1.0.17</plugin.gluonfx.version>
         <plugin.javapackager.version>1.6.7</plugin.javapackager.version>
         <plugin.javafx.version>0.0.8</plugin.javafx.version>
 
