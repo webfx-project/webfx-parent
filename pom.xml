@@ -11,6 +11,7 @@
     <packaging>pom</packaging>
 
     <properties>
+        <webfx.version>0.1.0-SNAPSHOT</webfx.version>
         <webfx.mainClass>dev.webfx.platform.boot.ApplicationBooter</webfx.mainClass>
         <webfx.mainModule>webfx.platform.shared.services.boot</webfx.mainModule>
 
@@ -90,7 +91,7 @@
         <plugin.gluonfx.param.mainClass>${webfx.mainClass}</plugin.gluonfx.param.mainClass>
         <plugin.javapackager.mainClass>${webfx.mainClass}</plugin.javapackager.mainClass>
         <plugin.javapackager.runnableJar>${project.build.directory}/${project.artifactId}-${project.version}-fat.jar</plugin.javapackager.runnableJar>
-        <plugin.javapackager.name>WebFxApp</plugin.javapackager.name>
+        <plugin.javapackager.name>WebFXApp</plugin.javapackager.name>
         <plugin.javapackager.displayName>WebFX Application</plugin.javapackager.displayName>
         <plugin.javapackager.url>TBD</plugin.javapackager.url>
         <plugin.javapackager.organizationName>WebFX</plugin.javapackager.organizationName>
@@ -712,27 +713,18 @@
             </activation>
             <build>
                 <plugins>
-                    <!-- Using the build helper plugin to attach webfx.xml -->
+                    <!-- Using the WebFX Maven plugin to export and attach webfx.xml -->
                     <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>build-helper-maven-plugin</artifactId>
-                        <version>${plugin.buildhelper.version}</version>
+                        <groupId>dev.webfx</groupId>
+                        <artifactId>webfx-maven-plugin</artifactId>
+                        <version>${webfx.version}</version>
                         <executions>
                             <execution>
-                                <id>attach-webfx-xml</id>
+                                <id>export-webfx-xml</id>
                                 <phase>package</phase>
                                 <goals>
-                                    <goal>attach-artifact</goal>
+                                    <goal>export</goal>
                                 </goals>
-                                <configuration>
-                                    <artifacts>
-                                        <artifact>
-                                            <file>webfx.xml</file>
-                                            <type>xml</type>
-                                            <classifier>webfx</classifier>
-                                        </artifact>
-                                    </artifacts>
-                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
