@@ -254,20 +254,22 @@
     </dependencyManagement>
 
     <pluginRepositories>
-        <!-- Adding Snapshots repository which is required to get the GWT 2.8.1-SNAPSHOT Maven plugin -->
+
+        <!-- Required to get the WebFX Maven plugin SNAPSHOT version -->
         <pluginRepository>
-            <id>snapshots</id>
+            <id>webfx-plugin-snapshots</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
             <releases><enabled>false</enabled></releases>
             <snapshots><enabled>true</enabled></snapshots>
         </pluginRepository>
+
     </pluginRepositories>
 
     <repositories>
 
         <!-- For Gluon -->
         <repository>
-            <id>Gluon</id>
+            <id>gluon-repository</id>
             <url>https://nexus.gluonhq.com/nexus/content/repositories/releases</url>
             <releases><enabled>true</enabled></releases>
             <snapshots><enabled>false</enabled></snapshots>
