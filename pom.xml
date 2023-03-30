@@ -40,7 +40,7 @@
 
         <teavm.version>0.8.0</teavm.version>
         <gluon.attach.version>4.0.17</gluon.attach.version>
-        <vertx.version>4.4.0</vertx.version>
+        <vertx.version>4.4.1</vertx.version>
 
         <!-- Maven minimum required version -->
         <maven.min.version>3.3.1</maven.min.version>
@@ -476,7 +476,7 @@
                             -->
                         </jvmArgs>
                         <!--<localWorkers>1</localWorkers>-->
-                        <!-- To make code server remotely accessible
+                        <!-- Uncomment to make GWT code server remotely accessible
                          <codeserverArgs>
                             <arg>-bindAddress</arg>
                             <arg>0.0.0.0</arg>
