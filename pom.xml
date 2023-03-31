@@ -705,9 +705,11 @@
             </build>
         </profile>
 
-        <!-- Automatically attach webfx.xml (if present) to the artifact in its Maven repository -->
+        <!-- Profile to automatically include the WebFX Maven plugin on WebFX modules -->
+        <!-- Note: the export goal is called by default during package phase. Other goals must be called explicitly. -->
         <profile>
-            <id>auto-attach-webfx-xml</id>
+            <id>auto-plugin-webfx</id>
+            <!-- We recognize a WebFX module by the presence of a webfx.xml file -->
             <activation>
                 <file>
                     <exists>webfx.xml</exists>
@@ -715,11 +717,11 @@
             </activation>
             <build>
                 <plugins>
-                    <!-- Using the WebFX Maven plugin to export and attach webfx.xml -->
                     <plugin>
                         <groupId>dev.webfx</groupId>
                         <artifactId>webfx-maven-plugin</artifactId>
                         <version>${webfx.version}</version>
+                        <!-- Automatically export webfx.xml as an artifact that will be attached in the Maven repository -->
                         <executions>
                             <execution>
                                 <id>export-webfx-xml</id>
@@ -734,9 +736,11 @@
             </build>
         </profile>
 
+        <!-- Profile to automatically include the GWT Maven plugin on GWT executable modules -->
+        <!-- Note: the compile goal is called by default but also skipped by default, unless gwt-compile profile is activated -->
         <profile>
             <id>auto-plugin-gwt</id>
-            <!-- Recognizing an executable gwt module by the presence of a GWT module file -->
+            <!-- We recognize an executable gwt module by the presence of a GWT module file -->
             <activation>
                 <file>
                     <exists>src/main/module.gwt.xml</exists>
@@ -753,9 +757,11 @@
             </build>
         </profile>
 
+        <!-- Profile to automatically include the GluonFX Maven plugin on Gluon executable modules -->
+        <!-- Note: No goals is called by default. Goals must be called explicitly -->
         <profile>
             <id>auto-plugin-gluon</id>
-            <!-- Recognizing an executable gluon module by the presence of a GraalVM conf folder -->
+            <!-- We recognize an executable gluon module by the presence of a GraalVM conf folder -->
             <activation>
                 <file>
                     <exists>src/main/graalvm_conf</exists>
