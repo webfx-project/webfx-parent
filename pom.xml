@@ -39,7 +39,7 @@
         <gwttime.version>2.0.10</gwttime.version>
 
         <teavm.version>0.8.1</teavm.version>
-        <gluon.attach.version>4.0.17</gluon.attach.version>
+        <gluon.attach.version>4.0.18</gluon.attach.version>
         <vertx.version>4.4.1</vertx.version>
 
         <!-- Maven minimum required version -->
