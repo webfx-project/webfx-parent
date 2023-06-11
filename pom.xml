@@ -721,11 +721,12 @@
                         <groupId>dev.webfx</groupId>
                         <artifactId>webfx-maven-plugin</artifactId>
                         <version>${webfx.version}</version>
-                        <!-- Automatically export webfx.xml as an artifact that will be attached in the Maven repository -->
+                        <!-- Automatically exports webfx.xml as an artifact that will be attached to the Maven repository -->
+                        <!-- This export is necessary only when deploying a WebFX library to ensure webfx.xml is up-to-date -->
                         <executions>
                             <execution>
                                 <id>export-webfx-xml</id>
-                                <phase>package</phase>
+                                <phase>deploy</phase>
                                 <goals>
                                     <goal>export</goal>
                                 </goals>
