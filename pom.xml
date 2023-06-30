@@ -315,6 +315,12 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>${plugin.deploy.version}</version>
+                    <!-- We deploy at end to avoid incomplete deployment when builds fails -->
+                    <!-- This also ensures that the WebFX plugin is called before the Maven deploy plugin
+                         (otherwise the exported webfx.xml is generated too late and is not uploaded!) -->
+                    <configuration>
+                        <deployAtEnd>true</deployAtEnd>
+                    </configuration>
                 </plugin>
 
                 <!-- Setting explicit fixed version for the install plugin -->
@@ -732,16 +738,6 @@
                                 </goals>
                             </execution>
                         </executions>
-                    </plugin>
-                    <!-- The Maven deploy plugin is implicit during the "deploy" phase, but we add this explicit call
-                     in order to specify the plugins order, ensuring that the WebFX Maven plugin is called before the
-                     Maven deploy plugin (which then upload the exported webfx.xml in the public Maven repository).
-                     Without specifying this order, the WebFX Maven plugin is called after, and the exported webfx.xml
-                     is not uploaded).
-                      -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-deploy-plugin</artifactId>
                     </plugin>
                 </plugins>
             </build>
