@@ -733,6 +733,16 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <!-- The Maven deploy plugin is implicit during the "deploy" phase, but we add this explicit call
+                     in order to specify the plugins order, ensuring that the WebFX Maven plugin is called before the
+                     Maven deploy plugin (which then upload the exported webfx.xml in the public Maven repository).
+                     Without specifying this order, the WebFX Maven plugin is called after, and the exported webfx.xml
+                     is not uploaded).
+                      -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
