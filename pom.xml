@@ -85,6 +85,7 @@
         <plugin.shade.param.fat.phase>package</plugin.shade.param.fat.phase>
         <plugin.gwt.param.skipCompilation>true</plugin.gwt.param.skipCompilation>
         <plugin.gwt.param.draftCompile>false</plugin.gwt.param.draftCompile>
+        <plugin.gwt.param.style>OBF</plugin.gwt.param.style>
         <plugin.gwt.param.optimize>9</plugin.gwt.param.optimize>
         <plugin.gwt.param.module>${project.artifactId}</plugin.gwt.param.module>
         <plugin.gluonfx.param.target>TBD</plugin.gluonfx.param.target>
@@ -479,6 +480,7 @@
                         <draftCompile>${plugin.gwt.param.draftCompile}</draftCompile>
                         <optimize>${plugin.gwt.param.optimize}</optimize>
                         <sourceLevel>${gwt.sourceLevel}</sourceLevel>
+                        <style>${plugin.gwt.param.style}</style>
                         <!-- Trying to solve a java heap OutOfMemoryError on the server -->
                         <jvmArgs>
                             <jvmArg>-Xmx1024m</jvmArg>
