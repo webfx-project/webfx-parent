@@ -512,8 +512,6 @@
                         <target>${plugin.gluonfx.param.target}</target>
                         <mainClass>${plugin.gluonfx.param.mainClass}</mainClass>
                         <nativeImageArgs>
-                            <!-- SL4J -->
-                            <arg>--allow-incomplete-classpath</arg>
                             <arg>-H:ReflectionConfigurationFiles=${project.basedir}/src/main/graalvm_conf/reflection.json</arg>
                         </nativeImageArgs>
                         <!-- Release configuration for GitHub workflows -->
