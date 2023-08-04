@@ -50,7 +50,7 @@
         <plugin.jar.version>3.2.2</plugin.jar.version>
         <plugin.source.version>3.2.1</plugin.source.version>
         <plugin.clean.version>3.2.0</plugin.clean.version>
-        <plugin.deploy.version>3.0.0-M2</plugin.deploy.version>
+        <plugin.deploy.version>3.1.1</plugin.deploy.version>
         <plugin.install.version>3.0.0-M1</plugin.install.version>
         <plugin.site.version>4.0.0-M2</plugin.site.version>
         <plugin.resources.version>3.2.0</plugin.resources.version>
@@ -664,6 +664,17 @@
                     </executions>
                 </plugin>
 
+                <!--
+                 ***********************************
+                 * WebFX plugin (just for version) *
+                 ***********************************
+                 -->
+                <plugin>
+                    <groupId>dev.webfx</groupId>
+                    <artifactId>webfx-maven-plugin</artifactId>
+                    <version>${webfx.version}</version>
+                </plugin>
+
             </plugins>
         </pluginManagement>
 
@@ -740,7 +751,6 @@
                     <plugin>
                         <groupId>dev.webfx</groupId>
                         <artifactId>webfx-maven-plugin</artifactId>
-                        <version>${webfx.version}</version>
                         <!-- Automatically exports webfx.xml as an artifact that will be attached to the Maven repository -->
                         <!-- This export is necessary only when deploying a WebFX library to ensure webfx.xml is up-to-date -->
                         <executions>
