@@ -288,6 +288,16 @@
 
     </repositories>
 
+    <distributionManagement>
+
+        <!-- Repository to use to deploy official webfx libraries -->
+        <snapshotRepository>
+            <id>webfx-sonatype-deploy</id> <!-- server username & password must be set in settings.xml -->
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+
+    </distributionManagement>
+
     <build>
 
         <pluginManagement>
