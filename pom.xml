@@ -288,16 +288,6 @@
 
     </repositories>
 
-    <distributionManagement>
-
-        <!-- To tell mvn deploy to deploy snapshots to Sonatype repository  -->
-        <snapshotRepository>
-            <id>sonatype-deploy</id> <!-- server username & password must be set in settings.xml -->
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-
-    </distributionManagement>
-
     <build>
 
         <pluginManagement>
