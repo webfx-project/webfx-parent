@@ -83,6 +83,7 @@
         <plugin.dependency.param.unpack-classes.outputDirectory>${project.build.outputDirectory}</plugin.dependency.param.unpack-classes.outputDirectory>
         <plugin.dependency.param.copy-libs.phase>validate</plugin.dependency.param.copy-libs.phase>
         <plugin.shade.param.fat.phase>package</plugin.shade.param.fat.phase>
+        <plugin.site.param.topSiteURL>https://site.webfx.dev</plugin.site.param.topSiteURL>
         <plugin.gwt.param.skipCompilation>true</plugin.gwt.param.skipCompilation>
         <plugin.gwt.param.draftCompile>false</plugin.gwt.param.draftCompile>
         <plugin.gwt.param.style>OBF</plugin.gwt.param.style>
@@ -107,8 +108,8 @@
         <application.build.tool>MAVEN</application.build.tool>
         <!-- Build timestamp property (automatically set using maven but can be overridden using Jenkins) -->
         <!-- Will be passed to GWT compiler so that the java code can get its value using System.getProperty("build.timestamp") -->
-        <maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ss'.000'X</maven.build.timestamp.format>
         <application.build.timestamp>${maven.build.timestamp}</application.build.timestamp>
+        <maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ss'.000'X</maven.build.timestamp.format>
 
     </properties>
 
@@ -300,7 +301,7 @@
         <site>
             <id>${project.artifactId}-site</id>
             <!-- Filling obligatory url parameter with dummy value (links will be relative in the end) -->
-            <url>https://webfx.dev</url>
+            <url>${plugin.site.param.topSiteURL}</url>
         </site>
 
     </distributionManagement>
@@ -353,6 +354,9 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
                     <version>${plugin.site.version}</version>
+                    <configuration>
+                        <topSiteURL>${plugin.site.param.topSiteURL}</topSiteURL>
+                    </configuration>
                 </plugin>
 
                 <!-- Setting explicit fixed version for the resources plugin -->
