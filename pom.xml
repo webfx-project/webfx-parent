@@ -296,6 +296,13 @@
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
 
+        <!-- This section is required for building site with mvn site:stage -->
+        <site>
+            <id>${project.artifactId}-site</id>
+            <!-- Filling obligatory url parameter with dummy value (links will be relative in the end) -->
+            <url>https://webfx.dev</url>
+        </site>
+
     </distributionManagement>
 
     <build>
