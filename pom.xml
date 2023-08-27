@@ -53,6 +53,7 @@
         <plugin.deploy.version>3.1.1</plugin.deploy.version>
         <plugin.install.version>3.1.0</plugin.install.version>
         <plugin.site.version>4.0.0-M8</plugin.site.version>
+        <plugin.reports.version>3.4.5</plugin.reports.version>
         <plugin.resources.version>3.3.1</plugin.resources.version>
         <plugin.surefire.version>3.1.2</plugin.surefire.version>
         <plugin.shade.version>3.5.0</plugin.shade.version>
@@ -357,6 +358,13 @@
                     <configuration>
                         <topSiteURL>${plugin.site.param.topSiteURL}</topSiteURL>
                     </configuration>
+                </plugin>
+
+                <!-- Setting explicit fixed version for the reports plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>${plugin.reports.version}</version>
                 </plugin>
 
                 <!-- Setting explicit fixed version for the resources plugin -->
