@@ -819,6 +819,25 @@
             </build>
         </profile>
 
+        <profile>
+            <id>auto-src-webfx</id>
+            <activation>
+                <file>
+                    <exists>src/main/webfx</exists>
+                </file>
+            </activation>
+            <build>
+                <!-- Moving the webfx sources (such as conf/) in the sources artifact (will be used by WebFX CLI) -->
+                <!-- To do that, we just move them under META-INF (will be also in build artifact despite not necessary) -->
+                <resources>
+                    <resource>
+                        <directory>src/main/webfx</directory>
+                        <targetPath>META-INF/webfx</targetPath>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+
     </profiles>
 
 </project>
