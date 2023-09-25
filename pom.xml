@@ -29,6 +29,10 @@
         <!-- OpenJFX version -->
         <openjfx.version>19</openjfx.version>
 
+        <!-- Gluon version -->
+        <plugin.gluonfx.version>1.0.21</plugin.gluonfx.version> <!-- => set Gluon Substrate version to 0.0.60 => targets Android API level 33 -->
+        <gluon.attach.version>4.0.19</gluon.attach.version> <!-- works with Gluon Substrate 0.0.59 or above -->
+
         <!-- GWT version -->
         <gwt.version>2.10.0</gwt.version>
 
@@ -38,8 +42,10 @@
         <!-- GWT-time version (GWT library to emulate java.time - not supported by default by GWT) -->
         <gwttime.version>2.0.10</gwttime.version>
 
+        <!-- TeaVM version -->
         <teavm.version>0.8.1</teavm.version>
-        <gluon.attach.version>4.0.18</gluon.attach.version>
+
+        <!-- Vert.x version -->
         <vertx.version>4.4.5</vertx.version>
 
         <!-- Maven minimum required version -->
@@ -62,7 +68,6 @@
         <!-- Third-party plugins versions -->
         <plugin.buildhelper.version>3.3.0</plugin.buildhelper.version>
         <plugin.gwt.version>1.1.0</plugin.gwt.version>
-        <plugin.gluonfx.version>1.0.19</plugin.gluonfx.version>
         <plugin.javapackager.version>1.6.7</plugin.javapackager.version>
         <plugin.javafx.version>0.0.8</plugin.javafx.version>
 
