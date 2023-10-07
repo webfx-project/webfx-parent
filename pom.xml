@@ -840,12 +840,16 @@
                 </file>
             </activation>
             <build>
-                <!-- Moving the webfx sources (such as conf/) in the sources artifact (will be used by WebFX CLI) -->
-                <!-- To do that, we just move them under META-INF (will be also in build artifact despite not necessary) -->
                 <resources>
+                    <!-- Moving the webfx sources (such as conf/) in the sources artifact (will be used by WebFX CLI) -->
+                    <!-- To do that, we just move them under META-INF (will be also in build artifact despite not necessary) -->
                     <resource>
                         <directory>src/main/webfx</directory>
                         <targetPath>META-INF/webfx</targetPath>
+                    </resource>
+                    <!-- Also listing default resource directory explicitly (otherwise Maven will stop considering it) -->
+                    <resource>
+                        <directory>src/main/resources</directory>
                     </resource>
                 </resources>
             </build>
