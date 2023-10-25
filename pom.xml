@@ -43,7 +43,7 @@
         <gwttime.version>2.0.10</gwttime.version>
 
         <!-- TeaVM version -->
-        <teavm.version>0.8.1</teavm.version>
+        <teavm.version>0.9.0</teavm.version>
 
         <!-- Vert.x version -->
         <vertx.version>4.4.6</vertx.version>
