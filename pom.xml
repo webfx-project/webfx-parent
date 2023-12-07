@@ -30,7 +30,7 @@
         <openjfx.version>19</openjfx.version>
 
         <!-- Gluon version -->
-        <plugin.gluonfx.version>1.0.21</plugin.gluonfx.version> <!-- => set Gluon Substrate version to 0.0.60 => targets Android API level 33 -->
+        <plugin.gluonfx.version>1.0.22</plugin.gluonfx.version> <!-- => set Gluon Substrate version to 0.0.61 => targets Android 13 (SDK 33) -->
         <gluon.attach.version>4.0.19</gluon.attach.version> <!-- works with Gluon Substrate 0.0.59 or above -->
 
         <!-- GWT version -->
