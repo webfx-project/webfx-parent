@@ -18,7 +18,7 @@
         <!-- Java version -->
         <java.version>11</java.version>
         <java.level>${java.version}</java.level>
-        <gwt.sourceLevel>1.${java.version}</gwt.sourceLevel>
+        <gwt.sourceLevel>${java.level}</gwt.sourceLevel>
 
         <!-- Applying compiler settings -->
         <maven.compiler.source>${java.level}</maven.compiler.source>
@@ -81,6 +81,7 @@
         <plugin.teavm.param.debug>false</plugin.teavm.param.debug>
 
         <!-- Plugin parameters with default values or set to TBD (To Be Defined) by any child module using the plugin -->
+        <plugin.webfx.param.export-phase>deploy</plugin.webfx.param.export-phase>
         <plugin.compiler.param.exclude></plugin.compiler.param.exclude>
         <plugin.jar.param.addMavenDescriptor>true</plugin.jar.param.addMavenDescriptor>
         <plugin.dependency.param.unpack-sources.phase>validate</plugin.dependency.param.unpack-sources.phase>
@@ -795,7 +796,7 @@
                         <executions>
                             <execution>
                                 <id>export-webfx-xml</id>
-                                <phase>deploy</phase>
+                                <phase>${plugin.webfx.param.export-phase}</phase>
                                 <goals>
                                     <goal>export</goal>
                                 </goals>
