@@ -193,6 +193,11 @@
                 <artifactId>elemental2-promise</artifactId>
                 <version>${elemental2.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.google.elemental2</groupId>
+                <artifactId>elemental2-webgl</artifactId>
+                <version>${elemental2.version}</version>
+            </dependency>
 
             <!-- Setting version for GWT-time modules -->
             <dependency>
