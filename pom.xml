@@ -34,7 +34,7 @@
         <gluon.attach.version>4.0.19</gluon.attach.version> <!-- works with Gluon Substrate 0.0.59 or above -->
 
         <!-- GWT version -->
-        <gwt.version>2.10.0</gwt.version>
+        <gwt.version>2.11.0</gwt.version>
 
         <!-- Elemental2 version (GWT extension exposing browser APIs directly from Java) -->
         <elemental2.version>1.1.0</elemental2.version>
