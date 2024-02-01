@@ -37,7 +37,8 @@
         <gwt.version>2.11.0</gwt.version>
 
         <!-- Elemental2 version (GWT extension exposing browser APIs directly from Java) -->
-        <elemental2.version>1.1.0</elemental2.version>
+        <elemental2.version>1.2.1</elemental2.version>
+        <jsinterop.version>1.0.1</jsinterop.version> <!-- Since elemental2 1.2.1 it is necessary to explicitly set jsinterop version, otherwise GWT compilation fails -->
 
         <!-- GWT-time version (GWT library to emulate java.time - not supported by default by GWT) -->
         <gwttime.version>2.0.10</gwttime.version>
@@ -166,6 +167,13 @@
                 <groupId>org.gwtproject</groupId>
                 <artifactId>gwt-dev</artifactId>
                 <version>${gwt.version}</version>
+            </dependency>
+
+            <!-- Setting version for JsInterop modules -->
+            <dependency>
+                <groupId>com.google.jsinterop</groupId>
+                <artifactId>base</artifactId>
+                <version>${jsinterop.version}</version>
             </dependency>
 
             <!-- Setting version for Elemental2 modules -->
