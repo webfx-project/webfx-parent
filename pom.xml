@@ -542,6 +542,28 @@
                         </execution>
                     </executions>
                     <configuration>
+                        <dependencyReplacements>
+                            <dependencyReplacement>
+                                <original>org.openjfx:javafx-base:*</original>
+                                <replacement>dev.webfx:webfx-kit-javafxbase-emul:${webfx.version}</replacement>
+                            </dependencyReplacement>
+                            <dependencyReplacement>
+                                <original>org.openjfx:javafx-graphics:*</original>
+                                <replacement>dev.webfx:webfx-kit-javafxgraphics-emul:${webfx.version}</replacement>
+                            </dependencyReplacement>
+                            <dependencyReplacement>
+                                <original>org.openjfx:javafx-controls:*</original>
+                                <replacement>dev.webfx:webfx-kit-javafxcontrols-emul:${webfx.version}</replacement>
+                            </dependencyReplacement>
+                            <dependencyReplacement>
+                                <original>org.openjfx:javafx-media:*</original>
+                                <replacement>dev.webfx:webfx-kit-javafxmedia-emul:${webfx.version}</replacement>
+                            </dependencyReplacement>
+                            <dependencyReplacement>
+                                <original>org.openjfx:javafx-web:*</original>
+                                <replacement>dev.webfx:webfx-kit-javafxweb-emul:${webfx.version}</replacement>
+                            </dependencyReplacement>
+                        </dependencyReplacements>
                         <webappDirectory>${project.build.directory}/j2cl-watch</webappDirectory>
                         <compilationLevel>ADVANCED</compilationLevel>
                     </configuration>
