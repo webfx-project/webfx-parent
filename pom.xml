@@ -33,6 +33,9 @@
         <plugin.gluonfx.version>1.0.22</plugin.gluonfx.version> <!-- => set Gluon Substrate version to 0.0.61 => targets Android 13 (SDK 33) -->
         <gluon.attach.version>4.0.19</gluon.attach.version> <!-- works with Gluon Substrate 0.0.59 or above -->
 
+        <!-- J2CL compatible JSInterop version provided by Vertispan -->
+        <vertispan.jsinterop.base.version>1.0.1-1</vertispan.jsinterop.base.version>
+
         <!-- GWT version -->
         <gwt.version>2.11.0</gwt.version>
 
@@ -542,21 +545,41 @@
                         </execution>
                     </executions>
                     <configuration>
+                        <!-- Note: Specifying dependencyReplacements removes the defaults provided by Vertispan -->
                         <dependencyReplacements>
+                            <!-- Defaults Vertispan replacements (from https://github.com/Vertispan/j2clmavenplugin/blob/320e5ba05f2916cb14839a829f73151776d1755b/j2cl-maven-plugin/src/main/java/com/vertispan/j2cl/mojo/AbstractBuildMojo.java#L91) -->
                             <dependencyReplacement>
-                                <original>org.openjfx:javafx-base:*</original>
+                                <original>com.google.jsinterop:base</original>
+                                <replacement>com.vertispan.jsinterop:base:${vertispan.jsinterop.base.version}</replacement>
+                            </dependencyReplacement>
+                            <dependencyReplacement>
+                                <original>org.realityforge.com.google.jsinterop:base</original>
+                                <replacement>com.vertispan.jsinterop:base:${vertispan.jsinterop.base.version}</replacement>
+                            </dependencyReplacement>
+                            <dependencyReplacement>
+                                <original>com.google.gwt:gwt-user</original>
+                            </dependencyReplacement>
+                            <dependencyReplacement>
+                                <original>com.google.gwt:gwt-dev</original>
+                            </dependencyReplacement>
+                            <dependencyReplacement>
+                                <original>com.google.gwt:gwt-servlet</original>
+                            </dependencyReplacement>
+                            <!-- WebFX replacements -->
+                            <dependencyReplacement>
+                                <original>org.openjfx:javafx-base</original>
                                 <replacement>dev.webfx:webfx-kit-javafxbase-emul:${webfx.version}</replacement>
                             </dependencyReplacement>
                             <dependencyReplacement>
-                                <original>org.openjfx:javafx-graphics:*</original>
+                                <original>org.openjfx:javafx-graphics</original>
                                 <replacement>dev.webfx:webfx-kit-javafxgraphics-emul:${webfx.version}</replacement>
                             </dependencyReplacement>
                             <dependencyReplacement>
-                                <original>org.openjfx:javafx-controls:*</original>
+                                <original>org.openjfx:javafx-controls</original>
                                 <replacement>dev.webfx:webfx-kit-javafxcontrols-emul:${webfx.version}</replacement>
                             </dependencyReplacement>
                             <dependencyReplacement>
-                                <original>org.openjfx:javafx-media:*</original>
+                                <original>org.openjfx:javafx-media</original>
                                 <replacement>dev.webfx:webfx-kit-javafxmedia-emul:${webfx.version}</replacement>
                             </dependencyReplacement>
                             <dependencyReplacement>
