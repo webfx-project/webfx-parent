@@ -27,7 +27,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- OpenJFX version (used for -openjfx WebFX modules, including final -openjfx application executable modules) -->
-        <openjfx.version>19</openjfx.version>
+        <openjfx.version>21.0.2</openjfx.version>
 
         <!-- Gluon version (used for -gluon WebFX modules, including final -gluon application executable modules) -->
         <gluon.gluonfx.plugin.version>1.0.22</gluon.gluonfx.plugin.version> <!-- => set Gluon Substrate version to 0.0.61 => targets Android 13 (SDK 33) -->
