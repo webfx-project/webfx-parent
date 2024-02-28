@@ -35,7 +35,7 @@
 
         <!-- J2CL version (used for -j2cl WebFX modules, including final -j2cl application executable modules) -->
         <!-- = v20230718-1 (indirectly set by Vertispan Maven plugin - See https://github.com/Vertispan/j2clmavenplugin/blob/v0.22.0/pom.xml#L90) -->
-        <vertispan.j2cl.plugin.version>0.22.0</vertispan.j2cl.plugin.version>
+        <vertispan.j2cl.plugin.version>0.23-SNAPSHOT</vertispan.j2cl.plugin.version>
         <!-- J2CL compatible JSInterop version provided by Vertispan. Must match https://github.com/Vertispan/j2clmavenplugin/blob/v0.22.0/pom.xml#L118 -->
         <vertispan.jsinterop.base.version>1.0.1-1</vertispan.jsinterop.base.version>
 
@@ -92,7 +92,6 @@
         <!-- Plugin parameters with default values or set to TBD (To Be Defined) by any child module using the plugin -->
         <plugin.webfx.param.export-phase>deploy</plugin.webfx.param.export-phase>
         <plugin.compiler.param.exclude></plugin.compiler.param.exclude>
-        <plugin.jar.param.addMavenDescriptor>true</plugin.jar.param.addMavenDescriptor>
         <plugin.dependency.param.unpack-sources.phase>validate</plugin.dependency.param.unpack-sources.phase>
         <plugin.dependency.param.unpack-classes.phase>validate</plugin.dependency.param.unpack-classes.phase>
         <plugin.dependency.param.unpack-classes.includes>**</plugin.dependency.param.unpack-classes.includes>
@@ -100,6 +99,8 @@
         <plugin.dependency.param.copy-libs.phase>validate</plugin.dependency.param.copy-libs.phase>
         <plugin.shade.param.fat.phase>package</plugin.shade.param.fat.phase>
         <plugin.site.param.topSiteURL>https://site.webfx.dev</plugin.site.param.topSiteURL>
+        <plugin.j2cl.compilationLevel>BUNDLE_JAR</plugin.j2cl.compilationLevel>
+        <plugin.j2cl.enableSourcemaps>false</plugin.j2cl.enableSourcemaps>
         <plugin.gwt.param.skipCompilation>true</plugin.gwt.param.skipCompilation>
         <plugin.gwt.param.draftCompile>false</plugin.gwt.param.draftCompile>
         <plugin.gwt.param.style>OBF</plugin.gwt.param.style>
@@ -419,6 +420,22 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>${plugin.resources.version}</version>
+                    <configuration>
+                        <resources>
+                            <!-- Standard copy of the resources -->
+                            <resource>
+                                <directory>src/main/resources</directory>
+                            </resource>
+                            <!-- Additional copy of the sources (required for the J2CL plugin to work properly) -->
+                            <resource>
+                                <directory>src/main/java</directory>
+                                <includes>
+                                    <include>**/*.java</include>
+                                    <include>**/*.native.js</include>
+                                </includes>
+                            </resource>
+                        </resources>
+                    </configuration>
                 </plugin>
 
                 <!-- Setting explicit fixed version for the surefire plugin -->
@@ -459,12 +476,6 @@
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>${plugin.jar.version}</version>
-                    <configuration>
-                        <archive>
-                            <!-- Whether including META-INF/maven/** coming from dependencies -->
-                            <addMavenDescriptor>${plugin.jar.param.addMavenDescriptor}</addMavenDescriptor>
-                        </archive>
-                    </configuration>
                 </plugin>
 
 
@@ -555,7 +566,7 @@
                     <configuration>
                         <!-- Note: Specifying dependencyReplacements removes the defaults provided by Vertispan -->
                         <dependencyReplacements>
-                            <!-- (Re)applying the Vertispan defaults (from https://github.com/Vertispan/j2clmavenplugin/blob/320e5ba05f2916cb14839a829f73151776d1755b/j2cl-maven-plugin/src/main/java/com/vertispan/j2cl/mojo/AbstractBuildMojo.java#L91) -->
+                            <!-- So, we first re-apply the Vertispan defaults (from https://github.com/Vertispan/j2clmavenplugin/blob/320e5ba05f2916cb14839a829f73151776d1755b/j2cl-maven-plugin/src/main/java/com/vertispan/j2cl/mojo/AbstractBuildMojo.java#L91) -->
                             <dependencyReplacement>
                                 <original>com.google.jsinterop:base</original>
                                 <replacement>com.vertispan.jsinterop:base:${vertispan.jsinterop.base.version}</replacement>
@@ -573,30 +584,87 @@
                             <dependencyReplacement>
                                 <original>com.google.gwt:gwt-servlet</original>
                             </dependencyReplacement>
-                            <!-- WebFX replacements -->
+
+                            <!-- Then, we apply the replacements required for WebFX -->
+
+                            <!-- Considering new GWT groupId -->
+                            <dependencyReplacement>
+                                <original>org.gwtproject:gwt-user</original>
+                            </dependencyReplacement>
+                            <dependencyReplacement>
+                                <original>org.gwtproject:gwt-dev</original>
+                            </dependencyReplacement>
+                            <dependencyReplacement>
+                                <original>org.gwtproject:gwt-servlet</original>
+                            </dependencyReplacement>
+
+                            <!-- OpenJFX javafx-base => WebFX emul module for javafx-base -->
                             <dependencyReplacement>
                                 <original>org.openjfx:javafx-base</original>
                                 <replacement>dev.webfx:webfx-kit-javafxbase-emul:${webfx.version}</replacement>
                             </dependencyReplacement>
+
+                            <!-- OpenJFX javafx-graphics => WebFX emul module for javafx-graphics -->
                             <dependencyReplacement>
                                 <original>org.openjfx:javafx-graphics</original>
-                                <replacement>dev.webfx:webfx-kit-javafxgraphics-emul:${webfx.version}</replacement>
+                                <replacement>dev.webfx:webfx-kit-j2cl:${webfx.version}</replacement>
                             </dependencyReplacement>
+                            <!-- There are actually several WebFX modules for javafx-graphics, but they are all merged
+                             into 1 single module for J2CL, the reason being that individual replacements was causing a
+                             dependency cycle in the J2CL plugin). This merged module is a kind of fat module of the
+                             individual modules (that are still in used for GWT and for the development).
+                             So, we need to replace all possible dependencies to the individual modules to that merged
+                             module when compiling for J2CL. -->
+                            <dependencyReplacement>
+                                <original>dev.webfx:webfx-kit-launcher</original>
+                                <replacement>dev.webfx:webfx-kit-j2cl:${webfx.version}</replacement>
+                            </dependencyReplacement>
+                            <dependencyReplacement>
+                                <original>dev.webfx:webfx-kit-javafxgraphics-emul</original>
+                                <replacement>dev.webfx:webfx-kit-j2cl:${webfx.version}</replacement>
+                            </dependencyReplacement>
+                            <dependencyReplacement>
+                                <original>dev.webfx:webfx-kit-javafxgraphics-peers</original>
+                                <replacement>dev.webfx:webfx-kit-j2cl:${webfx.version}</replacement>
+                            </dependencyReplacement>
+                            <dependencyReplacement>
+                                <original>dev.webfx:webfx-kit-javafxgraphics-peers-base</original>
+                                <replacement>dev.webfx:webfx-kit-j2cl:${webfx.version}</replacement>
+                            </dependencyReplacement>
+                            <dependencyReplacement>
+                                <original>dev.webfx:webfx-kit-javafxgraphics-peers-gwt</original>
+                                <replacement>dev.webfx:webfx-kit-j2cl:${webfx.version}</replacement>
+                            </dependencyReplacement>
+                            <dependencyReplacement>
+                                <original>dev.webfx:webfx-kit-javafxgraphics-registry-gwt</original>
+                                <replacement>dev.webfx:webfx-kit-j2cl:${webfx.version}</replacement>
+                            </dependencyReplacement>
+                            <dependencyReplacement>
+                                <original>dev.webfx:webfx-kit-util</original>
+                                <replacement>dev.webfx:webfx-kit-j2cl:${webfx.version}</replacement>
+                            </dependencyReplacement>
+
+                            <!-- OpenJFX javafx-controls => WebFX emul module for javafx-controls -->
                             <dependencyReplacement>
                                 <original>org.openjfx:javafx-controls</original>
                                 <replacement>dev.webfx:webfx-kit-javafxcontrols-emul:${webfx.version}</replacement>
                             </dependencyReplacement>
+
+                            <!-- OpenJFX javafx-media => WebFX emul module for javafx-media -->
                             <dependencyReplacement>
                                 <original>org.openjfx:javafx-media</original>
                                 <replacement>dev.webfx:webfx-kit-javafxmedia-emul:${webfx.version}</replacement>
                             </dependencyReplacement>
+
+                            <!-- OpenJFX javafx-web => WebFX emul module for javafx-web -->
                             <dependencyReplacement>
-                                <original>org.openjfx:javafx-web:*</original>
+                                <original>org.openjfx:javafx-web</original>
                                 <replacement>dev.webfx:webfx-kit-javafxweb-emul:${webfx.version}</replacement>
                             </dependencyReplacement>
                         </dependencyReplacements>
-                        <webappDirectory>${project.build.directory}/j2cl-watch</webappDirectory>
-                        <compilationLevel>ADVANCED</compilationLevel>
+
+                        <compilationLevel>${plugin.j2cl.compilationLevel}</compilationLevel>
+                        <enableSourcemaps>${plugin.j2cl.enableSourcemaps}</enableSourcemaps>
                     </configuration>
                 </plugin>
 
