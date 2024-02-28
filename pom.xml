@@ -607,7 +607,7 @@
                             <!-- OpenJFX javafx-graphics => WebFX emul module for javafx-graphics -->
                             <dependencyReplacement>
                                 <original>org.openjfx:javafx-graphics</original>
-                                <replacement>dev.webfx:webfx-kit-j2cl:${webfx.version}</replacement>
+                                <replacement>dev.webfx:webfx-kit-javafxgraphics-fat-j2cl:${webfx.version}</replacement>
                             </dependencyReplacement>
                             <!-- There are actually several WebFX modules for javafx-graphics, but they are all merged
                              into 1 single module for J2CL, the reason being that individual replacements was causing a
@@ -617,31 +617,31 @@
                              module when compiling for J2CL. -->
                             <dependencyReplacement>
                                 <original>dev.webfx:webfx-kit-launcher</original>
-                                <replacement>dev.webfx:webfx-kit-j2cl:${webfx.version}</replacement>
+                                <replacement>dev.webfx:webfx-kit-javafxgraphics-fat-j2cl:${webfx.version}</replacement>
                             </dependencyReplacement>
                             <dependencyReplacement>
                                 <original>dev.webfx:webfx-kit-javafxgraphics-emul</original>
-                                <replacement>dev.webfx:webfx-kit-j2cl:${webfx.version}</replacement>
+                                <replacement>dev.webfx:webfx-kit-javafxgraphics-fat-j2cl:${webfx.version}</replacement>
                             </dependencyReplacement>
                             <dependencyReplacement>
                                 <original>dev.webfx:webfx-kit-javafxgraphics-peers</original>
-                                <replacement>dev.webfx:webfx-kit-j2cl:${webfx.version}</replacement>
+                                <replacement>dev.webfx:webfx-kit-javafxgraphics-fat-j2cl:${webfx.version}</replacement>
                             </dependencyReplacement>
                             <dependencyReplacement>
                                 <original>dev.webfx:webfx-kit-javafxgraphics-peers-base</original>
-                                <replacement>dev.webfx:webfx-kit-j2cl:${webfx.version}</replacement>
+                                <replacement>dev.webfx:webfx-kit-javafxgraphics-fat-j2cl:${webfx.version}</replacement>
                             </dependencyReplacement>
                             <dependencyReplacement>
-                                <original>dev.webfx:webfx-kit-javafxgraphics-peers-gwt</original>
-                                <replacement>dev.webfx:webfx-kit-j2cl:${webfx.version}</replacement>
+                                <original>dev.webfx:webfx-kit-javafxgraphics-peers-gwt-j2cl</original>
+                                <replacement>dev.webfx:webfx-kit-javafxgraphics-fat-j2cl:${webfx.version}</replacement>
                             </dependencyReplacement>
                             <dependencyReplacement>
-                                <original>dev.webfx:webfx-kit-javafxgraphics-registry-gwt</original>
-                                <replacement>dev.webfx:webfx-kit-j2cl:${webfx.version}</replacement>
+                                <original>dev.webfx:webfx-kit-javafxgraphics-registry-gwt-j2cl</original>
+                                <replacement>dev.webfx:webfx-kit-javafxgraphics-fat-j2cl:${webfx.version}</replacement>
                             </dependencyReplacement>
                             <dependencyReplacement>
                                 <original>dev.webfx:webfx-kit-util</original>
-                                <replacement>dev.webfx:webfx-kit-j2cl:${webfx.version}</replacement>
+                                <replacement>dev.webfx:webfx-kit-javafxgraphics-fat-j2cl:${webfx.version}</replacement>
                             </dependencyReplacement>
 
                             <!-- OpenJFX javafx-controls => WebFX emul module for javafx-controls -->
