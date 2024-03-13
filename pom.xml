@@ -99,7 +99,7 @@
         <plugin.dependency.param.copy-libs.phase>validate</plugin.dependency.param.copy-libs.phase>
         <plugin.shade.param.fat.phase>package</plugin.shade.param.fat.phase>
         <plugin.site.param.topSiteURL>https://site.webfx.dev</plugin.site.param.topSiteURL>
-        <plugin.j2cl.compilationLevel>BUNDLE_JAR</plugin.j2cl.compilationLevel>
+        <plugin.j2cl.compilationLevel>ADVANCED</plugin.j2cl.compilationLevel>
         <plugin.j2cl.enableSourcemaps>false</plugin.j2cl.enableSourcemaps>
         <plugin.gwt.param.skipCompilation>true</plugin.gwt.param.skipCompilation>
         <plugin.gwt.param.draftCompile>false</plugin.gwt.param.draftCompile>
@@ -431,7 +431,7 @@
                                 <directory>src/main/java</directory>
                                 <includes>
                                     <include>**/*.java</include>
-                                    <include>**/*.native.js</include>
+                                    <include>**/*.js</include>
                                 </includes>
                             </resource>
                         </resources>
@@ -551,8 +551,12 @@
                  *****************************
                 -->
                 <plugin>
+<!--
                     <groupId>com.vertispan.j2cl</groupId>
                     <artifactId>j2cl-maven-plugin</artifactId>
+-->                 <!-- Temporary replaced with version deployed in webfx repo (until vertispan PR is merged and published) -->
+                    <groupId>dev.webfx</groupId>
+                    <artifactId>j2cl-maven-plugin-webfx</artifactId>
                     <version>${vertispan.j2cl.plugin.version}</version>
                     <executions>
                         <execution>
