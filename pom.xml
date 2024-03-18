@@ -534,7 +534,13 @@
                                     <filter>
                                         <artifact>*:*</artifact>
                                         <excludes>
+                                            <exclude>module-info.*</exclude>
+                                            <exclude>META-INF/*.SF</exclude>
+                                            <exclude>META-INF/*.DSA</exclude>
+                                            <exclude>META-INF/*.RSA</exclude>
+                                            <exclude>META-INF/versions/**</exclude>
                                             <exclude>META-INF/maven/**</exclude>
+                                            <exclude>META-INF/*.txt</exclude>
                                         </excludes>
                                     </filter>
                                 </filters>
