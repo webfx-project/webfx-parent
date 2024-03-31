@@ -952,11 +952,13 @@
         <profile>
             <id>auto-plugin-webfx</id>
             <!-- We recognize a WebFX module by the presence of a webfx.xml file -->
+<!--
             <activation>
                 <file>
                     <exists>webfx.xml</exists>
                 </file>
             </activation>
+-->
             <build>
                 <plugins>
                     <plugin>
