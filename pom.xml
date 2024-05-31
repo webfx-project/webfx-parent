@@ -56,7 +56,7 @@
         <teavm.version>0.10.0</teavm.version> <!-- Unified version for TeaVM modules and TeaVM Maven plugin -->
 
         <!-- Vert.x version (used for -vertx WebFX modules, including final -vertx application executable modules) -->
-        <vertx.version>4.5.7</vertx.version>
+        <vertx.version>4.5.8</vertx.version>
 
         <!-- Maven minimum required version -->
         <maven.min.version>3.3.1</maven.min.version>
