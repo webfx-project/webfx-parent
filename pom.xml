@@ -734,6 +734,7 @@
                         <mainClass>${plugin.gluonfx.param.mainClass}</mainClass>
                         <nativeImageArgs>
                             <arg>-H:ReflectionConfigurationFiles=${project.basedir}/src/main/graalvm_conf/reflection.json</arg>
+                            <arg>--enable-url-protocols=webfx-css</arg>
                         </nativeImageArgs>
                         <runtimeArgs>
                             <!-- Workaround for "No route to host" issue on iOS with IPv6 domains -->
