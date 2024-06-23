@@ -324,7 +324,7 @@
         <!-- Required to get the WebFX Maven plugin SNAPSHOT version -->
         <pluginRepository>
             <id>webfx-plugin-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
             <releases><enabled>false</enabled></releases>
             <snapshots><enabled>true</enabled></snapshots>
         </pluginRepository>
@@ -348,7 +348,7 @@
         <!-- Repository to use to deploy official webfx libraries -->
         <snapshotRepository>
             <id>webfx-sonatype-deploy</id> <!-- server username & password must be set in settings.xml -->
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
 
         <!-- This section is required for building site with mvn site:stage -->
