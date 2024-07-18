@@ -77,7 +77,7 @@
 
         <!-- Other third-party plugins versions -->
         <plugin.buildhelper.version>3.3.0</plugin.buildhelper.version>
-        <plugin.javapackager.version>1.7.5</plugin.javapackager.version>
+        <plugin.javapackager.version>1.7.6</plugin.javapackager.version>
         <plugin.javafx.version>0.0.8</plugin.javafx.version>
 
         <plugin.javacup.version>11b-20160615-3</plugin.javacup.version> <!-- Parser used for JSON, YAML & ORM expressions (in WebFX Stack) https://github.com/vbmacher/cup-maven-plugin -->
