@@ -30,7 +30,7 @@
         <openjfx.version>19</openjfx.version>
 
         <!-- Gluon version (used for -gluon WebFX modules, including final -gluon application executable modules) -->
-        <gluon.gluonfx.plugin.version>1.0.22</gluon.gluonfx.plugin.version> <!-- => set Gluon Substrate version to 0.0.61 => targets Android 13 (SDK 33) -->
+        <gluon.gluonfx.plugin.version>1.0.23</gluon.gluonfx.plugin.version> <!-- => set Gluon Substrate version to 0.0.63 => targets Android SDK 34 -->
         <gluon.attach.version>4.0.20</gluon.attach.version> <!-- works with Gluon Substrate 0.0.59 or above -->
 
         <!-- J2CL version (used for -j2cl WebFX modules, including final -j2cl application executable modules) -->
