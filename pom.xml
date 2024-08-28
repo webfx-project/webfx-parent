@@ -31,7 +31,7 @@
 
         <!-- Gluon version (used for -gluon WebFX modules, including final -gluon application executable modules) -->
         <gluon.gluonfx.plugin.version>1.0.22</gluon.gluonfx.plugin.version> <!-- => set Gluon Substrate version to 0.0.61 => targets Android 13 (SDK 33) -->
-        <gluon.attach.version>4.0.19</gluon.attach.version> <!-- works with Gluon Substrate 0.0.59 or above -->
+        <gluon.attach.version>4.0.20</gluon.attach.version> <!-- works with Gluon Substrate 0.0.59 or above -->
 
         <!-- J2CL version (used for -j2cl WebFX modules, including final -j2cl application executable modules) -->
         <!-- = v20230718-1 (indirectly set by Vertispan Maven plugin - See https://github.com/Vertispan/j2clmavenplugin/blob/v0.22.0/pom.xml#L90) -->
@@ -710,12 +710,10 @@
                             -->
                         </jvmArgs>
                         <!--<localWorkers>1</localWorkers>-->
-                        <!-- Uncomment to make GWT code server remotely accessible
                          <codeserverArgs>
                             <arg>-bindAddress</arg>
                             <arg>0.0.0.0</arg>
                          </codeserverArgs>
-                         -->
                     </configuration>
                 </plugin>
 
