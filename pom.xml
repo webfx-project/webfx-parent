@@ -16,7 +16,7 @@
         <webfx.mainModule>webfx.platform.shared.services.boot</webfx.mainModule>
 
         <!-- Java version -->
-        <java.version>11</java.version>
+        <java.version>11</java.version> <!-- for compatibility with GWT -->
         <java.level>${java.version}</java.level>
         <gwt.sourceLevel>${java.level}</gwt.sourceLevel>
 
@@ -710,10 +710,12 @@
                             -->
                         </jvmArgs>
                         <!--<localWorkers>1</localWorkers>-->
+                        <!-- Uncomment to make GWT code server remotely accessible
                          <codeserverArgs>
                             <arg>-bindAddress</arg>
                             <arg>0.0.0.0</arg>
                          </codeserverArgs>
+                         -->
                     </configuration>
                 </plugin>
 
