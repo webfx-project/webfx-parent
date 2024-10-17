@@ -16,7 +16,7 @@
         <webfx.mainModule>webfx.platform.shared.services.boot</webfx.mainModule>
 
         <!-- Java version -->
-        <java.version>11</java.version>
+        <java.version>11</java.version> <!-- for compatibility with GWT -->
         <java.level>${java.version}</java.level>
         <gwt.sourceLevel>${java.level}</gwt.sourceLevel>
 
@@ -30,8 +30,8 @@
         <openjfx.version>19</openjfx.version>
 
         <!-- Gluon version (used for -gluon WebFX modules, including final -gluon application executable modules) -->
-        <gluon.gluonfx.plugin.version>1.0.22</gluon.gluonfx.plugin.version> <!-- => set Gluon Substrate version to 0.0.61 => targets Android 13 (SDK 33) -->
-        <gluon.attach.version>4.0.19</gluon.attach.version> <!-- works with Gluon Substrate 0.0.59 or above -->
+        <gluon.gluonfx.plugin.version>1.0.23</gluon.gluonfx.plugin.version> <!-- => set Gluon Substrate version to 0.0.63 => targets Android SDK 34 -->
+        <gluon.attach.version>4.0.20</gluon.attach.version> <!-- works with Gluon Substrate 0.0.59 or above -->
 
         <!-- J2CL version (used for -j2cl WebFX modules, including final -j2cl application executable modules) -->
         <!-- = v20230718-1 (indirectly set by Vertispan Maven plugin - See https://github.com/Vertispan/j2clmavenplugin/blob/v0.22.0/pom.xml#L90) -->
