@@ -16,7 +16,7 @@
         <webfx.mainModule>webfx.platform.shared.services.boot</webfx.mainModule>
 
         <!-- Java version -->
-        <java.version>11</java.version> <!-- for compatibility with GWT -->
+        <java.version>17</java.version> <!-- for compatibility with GWT -->
         <java.level>${java.version}</java.level>
         <gwt.sourceLevel>${java.level}</gwt.sourceLevel>
 
@@ -40,7 +40,7 @@
         <vertispan.jsinterop.base.version>1.0.1-1</vertispan.jsinterop.base.version>
 
         <!-- GWT version (used for -gwt WebFX modules, including final -gwt application executable modules) -->
-        <gwt.version>2.11.0</gwt.version>
+        <gwt.version>2.12.1</gwt.version>
         <!-- GWT Maven plugin version. https://github.com/tbroyer/gwt-maven-plugin -->
         <tbroyer.gwt.plugin.version>1.1.0</tbroyer.gwt.plugin.version>
 
