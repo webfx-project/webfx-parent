@@ -16,7 +16,7 @@
         <webfx.mainModule>webfx.platform.shared.services.boot</webfx.mainModule>
 
         <!-- Java version -->
-        <java.version>11</java.version> <!-- for compatibility with GWT -->
+        <java.version>17</java.version> <!-- for compatibility with GWT -->
         <java.level>${java.version}</java.level>
         <gwt.sourceLevel>${java.level}</gwt.sourceLevel>
 
@@ -27,7 +27,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- OpenJFX version (used for -openjfx WebFX modules, including final -openjfx application executable modules) -->
-        <openjfx.version>19</openjfx.version>
+        <openjfx.version>21</openjfx.version>
 
         <!-- Gluon version (used for -gluon WebFX modules, including final -gluon application executable modules) -->
         <gluon.gluonfx.plugin.version>1.0.23</gluon.gluonfx.plugin.version> <!-- => set Gluon Substrate version to 0.0.63 => targets Android SDK 34 -->
@@ -40,7 +40,7 @@
         <vertispan.jsinterop.base.version>1.0.1-1</vertispan.jsinterop.base.version>
 
         <!-- GWT version (used for -gwt WebFX modules, including final -gwt application executable modules) -->
-        <gwt.version>2.11.0</gwt.version>
+        <gwt.version>2.12.1</gwt.version>
         <!-- GWT Maven plugin version. https://github.com/tbroyer/gwt-maven-plugin -->
         <tbroyer.gwt.plugin.version>1.1.0</tbroyer.gwt.plugin.version>
 
@@ -53,10 +53,10 @@
         <gwttime.version>2.0.11</gwttime.version>
 
         <!-- TeaVM version (used for -teavm WebFX modules, including future final -teavm application executable modules) -->
-        <teavm.version>0.10.0</teavm.version> <!-- Unified version for TeaVM modules and TeaVM Maven plugin -->
+        <teavm.version>0.11.0</teavm.version> <!-- Unified version for TeaVM modules and TeaVM Maven plugin -->
 
         <!-- Vert.x version (used for -vertx WebFX modules, including final -vertx application executable modules) -->
-        <vertx.version>4.5.9</vertx.version>
+        <vertx.version>4.5.11</vertx.version>
 
         <!-- Maven minimum required version -->
         <maven.min.version>3.3.1</maven.min.version>
