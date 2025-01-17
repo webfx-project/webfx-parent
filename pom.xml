@@ -165,6 +165,11 @@
                 <artifactId>javafx-fxml</artifactId>
                 <version>${openjfx.version}</version>
             </dependency>
+            <dependency> <!-- Not emulated by WebFX but may be used in some pure OpenJFX modules -->
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-swing</artifactId>
+                <version>${openjfx.version}</version>
+            </dependency>
 
             <!-- Setting version for GWT modules -->
             <dependency>
