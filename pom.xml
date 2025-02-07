@@ -441,15 +441,15 @@
                                      pom also applies to the WebFX CLI build, and we don't want the index.html and
                                      exe.properties template files to be filtered in the WebFX CLI. -->
                                     <exclude>public/index.html</exclude>
-                                    <exclude>dev/webfx/platform/exe/exe.properties</exclude>
+                                    <exclude>dev/webfx/platform/meta/exe/exe.properties</exclude>
                                 </excludes>
                             </resource>
                             <resource> <!-- filtering (maven variable replacements) for index.html and exe.properties -->
                                 <directory>src/main/resources</directory>
                                 <filtering>true</filtering>
                                 <includes>
-                                    <exclude>public/index.html</exclude> <!-- because of main.css?v=${maven.build.timestamp} to force CSS reload on each new build -->
-                                    <exclude>dev/webfx/platform/exe/exe.properties</exclude> <!-- because of mavenBuildTimestamp=${maven.build.timestamp} -->
+                                    <include>public/index.html</include> <!-- because of main.css?v=${maven.build.timestamp} to force CSS reload on each new build -->
+                                    <include>dev/webfx/platform/meta/exe/exe.properties</include> <!-- because of mavenBuildTimestamp=${maven.build.timestamp} -->
                                 </includes>
                             </resource>
                             <!-- 2) Additional copy of the sources (required for the J2CL plugin to work properly) -->
