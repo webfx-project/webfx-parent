@@ -432,11 +432,27 @@
                     <version>${plugin.resources.version}</version>
                     <configuration>
                         <resources>
-                            <!-- Standard copy of the resources -->
-                            <resource>
+                            <!-- 1) Standard copy of the resources, but with filtering for index.html and exe.properties -->
+                            <resource> <!-- no filtering for files other than index.html and exe.properties -->
                                 <directory>src/main/resources</directory>
+                                <filtering>false</filtering>
+                                <excludes>
+                                    <!-- Note: important to specify full path (not just file names) because this parent
+                                     pom also applies to the WebFX CLI build, and we don't want the index.html and
+                                     exe.properties template files to be filtered in the WebFX CLI. -->
+                                    <exclude>public/index.html</exclude>
+                                    <exclude>dev/webfx/platform/exe/exe.properties</exclude>
+                                </excludes>
                             </resource>
-                            <!-- Additional copy of the sources (required for the J2CL plugin to work properly) -->
+                            <resource> <!-- filtering (maven variable replacements) for index.html and exe.properties -->
+                                <directory>src/main/resources</directory>
+                                <filtering>true</filtering>
+                                <includes>
+                                    <exclude>public/index.html</exclude> <!-- because of main.css?v=${maven.build.timestamp} to force CSS reload on each new build -->
+                                    <exclude>dev/webfx/platform/exe/exe.properties</exclude> <!-- because of mavenBuildTimestamp=${maven.build.timestamp} -->
+                                </includes>
+                            </resource>
+                            <!-- 2) Additional copy of the sources (required for the J2CL plugin to work properly) -->
                             <resource>
                                 <directory>src/main/java</directory>
                                 <includes>
