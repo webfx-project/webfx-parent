@@ -56,7 +56,7 @@
         <teavm.version>0.11.0</teavm.version> <!-- Unified version for TeaVM modules and TeaVM Maven plugin -->
 
         <!-- Vert.x version (used for -vertx WebFX modules, including final -vertx application executable modules) -->
-        <vertx.version>4.5.12</vertx.version>
+        <vertx.version>4.5.13</vertx.version>
 
         <!-- Maven minimum required version -->
         <maven.min.version>3.3.1</maven.min.version>
@@ -432,11 +432,27 @@
                     <version>${plugin.resources.version}</version>
                     <configuration>
                         <resources>
-                            <!-- Standard copy of the resources -->
-                            <resource>
+                            <!-- 1) Standard copy of the resources, but with filtering for index.html and exe.properties -->
+                            <resource> <!-- no filtering for files other than index.html and exe.properties -->
                                 <directory>src/main/resources</directory>
+                                <filtering>false</filtering>
+                                <excludes>
+                                    <!-- Note: important to specify full path (not just file names) because this parent
+                                     pom also applies to the WebFX CLI build, and we don't want the index.html and
+                                     exe.properties template files to be filtered in the WebFX CLI. -->
+                                    <exclude>public/index.html</exclude>
+                                    <exclude>dev/webfx/platform/meta/exe/exe.properties</exclude>
+                                </excludes>
                             </resource>
-                            <!-- Additional copy of the sources (required for the J2CL plugin to work properly) -->
+                            <resource> <!-- filtering (maven variable replacements) for index.html and exe.properties -->
+                                <directory>src/main/resources</directory>
+                                <filtering>true</filtering>
+                                <includes>
+                                    <include>public/index.html</include> <!-- because of main.css?v=${maven.build.timestamp} to force CSS reload on each new build -->
+                                    <include>dev/webfx/platform/meta/exe/exe.properties</include> <!-- because of mavenBuildTimestamp=${maven.build.timestamp} -->
+                                </includes>
+                            </resource>
+                            <!-- 2) Additional copy of the sources (required for the J2CL plugin to work properly) -->
                             <resource>
                                 <directory>src/main/java</directory>
                                 <includes>
