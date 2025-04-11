@@ -723,9 +723,9 @@
                         <optimize>${plugin.gwt.param.optimize}</optimize>
                         <sourceLevel>${gwt.sourceLevel}</sourceLevel>
                         <style>${plugin.gwt.param.style}</style>
-                        <!-- Trying to solve a java heap OutOfMemoryError on the server -->
                         <jvmArgs>
-                            <jvmArg>-Xmx1024m</jvmArg>
+                            <!-- Was to solve a java heap OutOfMemoryError on the server -->
+                            <!--<jvmArg>-Xmx1024m</jvmArg>-->
                             <!-- Uncomment to attach a debugger during GWT compilation
                             <arg>-agentlib:jdwp=transport=dt_socket,address=localhost:8000,server=y,suspend=y</arg>
                             -->
