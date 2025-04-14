@@ -938,6 +938,19 @@
             </properties>
         </profile>
 
+        <!-- profile to compile the java code into javascript using GWT -->
+        <profile>
+            <id>gwt-dev</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <plugin.gwt.param.draftCompile>true</plugin.gwt.param.draftCompile>
+                <plugin.gwt.param.style>PRETTY</plugin.gwt.param.style>
+                <plugin.gwt.param.optimize>0</plugin.gwt.param.optimize>
+            </properties>
+        </profile>
+
         <profile>
             <id>gluon-desktop</id>
             <properties>
