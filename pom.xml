@@ -56,7 +56,7 @@
         <teavm.version>0.11.0</teavm.version> <!-- Unified version for TeaVM modules and TeaVM Maven plugin -->
 
         <!-- Vert.x version (used for -vertx WebFX modules, including final -vertx application executable modules) -->
-        <vertx.version>4.5.13</vertx.version>
+        <vertx.version>4.5.14</vertx.version>
 
         <!-- Maven minimum required version -->
         <maven.min.version>3.3.1</maven.min.version>
@@ -723,9 +723,9 @@
                         <optimize>${plugin.gwt.param.optimize}</optimize>
                         <sourceLevel>${gwt.sourceLevel}</sourceLevel>
                         <style>${plugin.gwt.param.style}</style>
-                        <!-- Trying to solve a java heap OutOfMemoryError on the server -->
                         <jvmArgs>
-                            <jvmArg>-Xmx1024m</jvmArg>
+                            <!-- Was to solve a java heap OutOfMemoryError on the server -->
+                            <!--<jvmArg>-Xmx1024m</jvmArg>-->
                             <!-- Uncomment to attach a debugger during GWT compilation
                             <arg>-agentlib:jdwp=transport=dt_socket,address=localhost:8000,server=y,suspend=y</arg>
                             -->
@@ -935,6 +935,19 @@
             </activation>
             <properties>
                 <plugin.gwt.param.skipCompilation>false</plugin.gwt.param.skipCompilation>
+            </properties>
+        </profile>
+
+        <!-- profile to compile the java code into javascript using GWT -->
+        <profile>
+            <id>gwt-dev</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <plugin.gwt.param.draftCompile>true</plugin.gwt.param.draftCompile>
+                <plugin.gwt.param.style>PRETTY</plugin.gwt.param.style>
+                <plugin.gwt.param.optimize>0</plugin.gwt.param.optimize>
             </properties>
         </profile>
 
