@@ -951,6 +951,41 @@
             </properties>
         </profile>
 
+        <!-- profile to generate the source maps when invoking GWT -->
+        <profile>
+            <id>gwt-sourcemaps</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>net.ltgt.gwt.maven</groupId>
+                            <artifactId>gwt-maven-plugin</artifactId>
+                            <configuration>
+                                <compilerArgs>
+                                    <arg>-setProperty</arg>
+                                    <arg>compiler.useSourceMaps=true</arg>
+                                    <!-- not sure about this flag
+                                    <arg>-setProperty</arg>
+                                    <arg>compiler.useSymbolMaps=true</arg>
+                                    -->
+                                    <!-- this asks GWT to copy the java source files in a src folder, but not necessary
+                                         in the end because we embed them directly in the source maps with the
+                                         configuration property compiler.embedSourceMaps = true in module.gwt.xml
+                                    <arg>-saveSource</arg>
+                                    <arg>-saveSourceOutput</arg>
+                                    <arg>${project.build.directory}/gwt-sourcemaps</arg>
+                                    -->
+                                </compilerArgs>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+
         <profile>
             <id>gluon-desktop</id>
             <properties>
@@ -1035,6 +1070,34 @@
                         <groupId>net.ltgt.gwt.maven</groupId>
                         <artifactId>gwt-maven-plugin</artifactId>
                     </plugin>
+
+                    <!-- If source maps have been generated (by activating the gwt-sourcemaps profile), we embed them in the web app -->
+                    <plugin>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <version>3.3.1</version>
+                        <executions>
+                            <execution>
+                                <id>copy-gwt-sourcemaps</id>
+                                <phase>prepare-package</phase> <!-- after gwt:compile (=> source maps generated) but before gwt:package-app (.war generation) -->
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${project.build.directory}/${project.build.finalName}</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>${project.build.directory}/gwt/deploy</directory>
+                                            <includes>
+                                                <!-- Only the XXX_sourceMap0.json is necessary, it contains all java sources as well -->
+                                                <include>**/*_sourceMap*.json</include>
+                                            </includes>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
                 </plugins>
             </build>
         </profile>
