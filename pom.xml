@@ -261,7 +261,7 @@
                 <version>${teavm.version}</version>
             </dependency>
 
-            <!-- Setting version for Gluon Attach modules -->
+            <!-- Setting the version for Gluon Attach modules -->
             <dependency>
                 <groupId>com.gluonhq.attach</groupId>
                 <artifactId>audio</artifactId>
@@ -647,8 +647,8 @@
                             </dependencyReplacement>
                             <!-- There are actually several WebFX modules for javafx-graphics, but they are all merged
                              into 1 single module for J2CL, the reason being that individual replacements were causing a
-                             dependency cycle in the J2CL plugin). This merged module is a kind of fat module of the
-                             individual modules (that are still in used for GWT and for the development).
+                             dependency cycle in the J2CL plugin). This merged module is a fat module of all individual
+                             modules (that are still in use for GWT and for the development).
                              So, we need to replace all possible dependencies to the individual modules to that merged
                              module when compiling for J2CL. -->
                             <dependencyReplacement>
@@ -867,7 +867,7 @@
                     <artifactId>teavm-maven-plugin</artifactId>
                     <version>${plugin.teavm.version}</version>
                     <dependencies>
-                        <!-- This dependency is required by TeaVM to emulate subset of Java class library -->
+                        <!-- This dependency is required by TeaVM to emulate a subset of Java class library -->
                         <dependency>
                             <groupId>org.teavm</groupId>
                             <artifactId>teavm-classlib</artifactId>
@@ -979,6 +979,8 @@
                                     <arg>${project.build.directory}/gwt-sourcemaps</arg>
                                     -->
                                 </compilerArgs>
+                                <!-- Asking to put the source maps directly in the webapp (rather than in gwt/deploy) -->
+                                <deploy>${project.build.directory}/${project.build.finalName}</deploy>
                             </configuration>
                         </plugin>
                     </plugins>
@@ -1070,34 +1072,6 @@
                         <groupId>net.ltgt.gwt.maven</groupId>
                         <artifactId>gwt-maven-plugin</artifactId>
                     </plugin>
-
-                    <!-- If source maps have been generated (by activating the gwt-sourcemaps profile), we embed them in the web app -->
-                    <plugin>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <version>3.3.1</version>
-                        <executions>
-                            <execution>
-                                <id>copy-gwt-sourcemaps</id>
-                                <phase>prepare-package</phase> <!-- after gwt:compile (=> source maps generated) but before gwt:package-app (.war generation) -->
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${project.build.directory}/${project.build.finalName}</outputDirectory>
-                                    <resources>
-                                        <resource>
-                                            <directory>${project.build.directory}/gwt/deploy</directory>
-                                            <includes>
-                                                <!-- Only the XXX_sourceMap0.json is necessary, it contains all java sources as well -->
-                                                <include>**/*_sourceMap*.json</include>
-                                            </includes>
-                                        </resource>
-                                    </resources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-
                 </plugins>
             </build>
         </profile>
