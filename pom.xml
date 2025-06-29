@@ -29,11 +29,11 @@
         <!-- OpenJFX version (used for -openjfx WebFX modules, including final -openjfx application executable modules) -->
         <openjfx.version>21.0.6</openjfx.version>
 
-        <!-- Gluon version (used for -gluon WebFX modules, including final -gluon application executable modules) -->
+        <!-- Gluon version (used for xxx-gluon WebFX modules, including final xxx-gluon application executable modules) -->
         <gluon.gluonfx.plugin.version>1.0.23</gluon.gluonfx.plugin.version> <!-- => set Gluon Substrate version to 0.0.63 => targets Android SDK 34 -->
         <gluon.attach.version>4.0.20</gluon.attach.version> <!-- works with Gluon Substrate 0.0.59 or above -->
 
-        <!-- J2CL version (used for -j2cl WebFX modules, including final -j2cl application executable modules) -->
+        <!-- J2CL version (used for xxx-j2cl WebFX modules, including final xxx-j2cl application executable modules) -->
         <!-- = v20230718-1 (indirectly set by Vertispan Maven plugin - See https://github.com/Vertispan/j2clmavenplugin/blob/v0.22.0/pom.xml#L90) -->
         <vertispan.j2cl.plugin.version>0.23-SNAPSHOT</vertispan.j2cl.plugin.version>
         <!-- J2CL compatible JSInterop version provided by Vertispan. Must match https://github.com/Vertispan/j2clmavenplugin/blob/v0.22.0/pom.xml#L118 -->
@@ -56,7 +56,7 @@
         <teavm.version>0.11.0</teavm.version> <!-- Unified version for TeaVM modules and TeaVM Maven plugin -->
 
         <!-- Vert.x version (used for -vertx WebFX modules, including final -vertx application executable modules) -->
-        <vertx.version>4.5.14</vertx.version>
+        <vertx.version>5.0.1</vertx.version>
 
         <!-- Maven minimum required version -->
         <maven.min.version>3.3.1</maven.min.version>
@@ -90,7 +90,7 @@
         <plugin.teavm.param.debug>false</plugin.teavm.param.debug>
 
         <!-- Plugin parameters with default values or set to TBD (To Be Defined) by any child module using the plugin -->
-        <plugin.webfx.param.export-phase>deploy</plugin.webfx.param.export-phase> <!-- can be set to verify on dev machine for testing before deployment -->
+        <plugin.webfx.param.export-phase>deploy</plugin.webfx.param.export-phase> <!-- can be set to verify on the dev machine for testing before deployment -->
         <plugin.compiler.param.exclude></plugin.compiler.param.exclude>
         <plugin.dependency.param.unpack-sources.phase>validate</plugin.dependency.param.unpack-sources.phase>
         <plugin.dependency.param.unpack-classes.phase>validate</plugin.dependency.param.unpack-classes.phase>
@@ -261,7 +261,7 @@
                 <version>${teavm.version}</version>
             </dependency>
 
-            <!-- Setting version for Gluon Attach modules -->
+            <!-- Setting the version for Gluon Attach modules -->
             <dependency>
                 <groupId>com.gluonhq.attach</groupId>
                 <artifactId>audio</artifactId>
@@ -352,14 +352,14 @@
 
         <!-- Repository to use to deploy official webfx libraries -->
         <snapshotRepository>
-            <id>webfx-sonatype-deploy</id> <!-- server username & password must be set in settings.xml -->
+            <id>webfx-sonatype-deploy</id> <!-- server username and password must be set in settings.xml -->
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
 
         <!-- This section is required for building site with mvn site:stage -->
         <site>
             <id>${project.artifactId}-site</id>
-            <!-- Filling obligatory url parameter with dummy value (links will be relative in the end) -->
+            <!-- Filling obligatory url parameter with arbitrary value (links will be relative in the end) -->
             <url>${plugin.site.param.topSiteURL}</url>
         </site>
 
@@ -371,7 +371,7 @@
             <!-- plugins listed here are just pre-configured for a possible use in a module -->
             <plugins>
 
-                <!-- Setting explicit fixed version for the compiler plugin -->
+                <!-- Setting an explicit fixed version for the compiler plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
@@ -381,19 +381,19 @@
                     </configuration>
                 </plugin>
 
-                <!-- Setting explicit fixed version for the clean plugin -->
+                <!-- Setting an explicit fixed version for the clean plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
                     <version>${plugin.clean.version}</version>
                 </plugin>
 
-                <!-- Setting explicit fixed version for the deploy plugin -->
+                <!-- Setting an explicit fixed version for the Maven deploy plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>${plugin.deploy.version}</version>
-                    <!-- We deploy at end to avoid incomplete deployment when builds fails -->
+                    <!-- We deploy at the end to avoid incomplete deployment when builds fails -->
                     <!-- This also ensures that the WebFX plugin is called before the Maven deploy plugin
                          (otherwise the exported webfx.xml is generated too late and is not uploaded!) -->
                     <configuration>
@@ -401,14 +401,14 @@
                     </configuration>
                 </plugin>
 
-                <!-- Setting explicit fixed version for the install plugin -->
+                <!-- Setting an explicit fixed version for the Maven install plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-install-plugin</artifactId>
                     <version>${plugin.install.version}</version>
                 </plugin>
 
-                <!-- Setting explicit fixed version for the site plugin -->
+                <!-- Setting an explicit fixed version for the Maven site plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
@@ -418,14 +418,14 @@
                     </configuration>
                 </plugin>
 
-                <!-- Setting explicit fixed version for the reports plugin -->
+                <!-- Setting an explicit fixed version for the Maven reports plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
                     <version>${plugin.reports.version}</version>
                 </plugin>
 
-                <!-- Setting explicit fixed version for the resources plugin -->
+                <!-- Setting an explicit fixed version for the Maven resources plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
@@ -437,9 +437,9 @@
                                 <directory>src/main/resources</directory>
                                 <filtering>false</filtering>
                                 <excludes>
-                                    <!-- Note: important to specify full path (not just file names) because this parent
-                                     pom also applies to the WebFX CLI build, and we don't want the index.html and
-                                     exe.properties template files to be filtered in the WebFX CLI. -->
+                                    <!-- Note: important to specify the full path (not just file names) because this
+                                     parent pom also applies to the WebFX CLI build, and we don't want the index.html
+                                     and exe.properties template files to be filtered in the WebFX CLI. -->
                                     <exclude>public/index.html</exclude>
                                     <exclude>dev/webfx/platform/meta/exe/exe.properties</exclude>
                                 </excludes>
@@ -448,7 +448,7 @@
                                 <directory>src/main/resources</directory>
                                 <filtering>true</filtering>
                                 <includes>
-                                    <include>public/index.html</include> <!-- because of main.css?v=${maven.build.timestamp} to force CSS reload on each new build -->
+                                    <include>public/index.html</include> <!-- because of main.css?v=${maven.build.timestamp} to force CSS to reload on each new build -->
                                     <include>dev/webfx/platform/meta/exe/exe.properties</include> <!-- because of mavenBuildTimestamp=${maven.build.timestamp} -->
                                 </includes>
                             </resource>
@@ -464,14 +464,14 @@
                     </configuration>
                 </plugin>
 
-                <!-- Setting explicit fixed version for the surefire plugin -->
+                <!-- Setting an explicit fixed version for the Maven surefire plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${plugin.surefire.version}</version>
                 </plugin>
 
-                <!-- Setting explicit fixed version for the enforcer plugin -->
+                <!-- Setting an explicit fixed version for the Maven enforcer plugin -->
                 <!-- And configure it to check the required Maven version -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -509,7 +509,7 @@
                  **************************************
                  * Maven sources plugin configuration *
                  **************************************
-                 Plugin to generate the sources artifacts which will be used by GWT which is java source code transpiler (and not a bytecode transpiler like TeaVM)
+                 Plugin to generate the source artifacts which will be used by GWT which is java source code transpiler (and not a bytecode transpiler like TeaVM)
                  -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -586,7 +586,7 @@
 <!--
                     <groupId>com.vertispan.j2cl</groupId>
                     <artifactId>j2cl-maven-plugin</artifactId>
--->                 <!-- Temporary replaced with version deployed in webfx repo (until vertispan PR is merged and published) -->
+-->                 <!-- Temporarily replaced with the version deployed in webfx repo (until vertispan PR is merged and published) -->
                     <groupId>dev.webfx</groupId>
                     <artifactId>j2cl-maven-plugin-webfx</artifactId>
                     <version>${vertispan.j2cl.plugin.version}</version>
@@ -646,9 +646,9 @@
                                 <replacement>dev.webfx:webfx-kit-javafxgraphics-fat-j2cl:${webfx.version}</replacement>
                             </dependencyReplacement>
                             <!-- There are actually several WebFX modules for javafx-graphics, but they are all merged
-                             into 1 single module for J2CL, the reason being that individual replacements was causing a
-                             dependency cycle in the J2CL plugin). This merged module is a kind of fat module of the
-                             individual modules (that are still in used for GWT and for the development).
+                             into 1 single module for J2CL, the reason being that individual replacements were causing a
+                             dependency cycle in the J2CL plugin). This merged module is a fat module of all individual
+                             modules (that are still in use for GWT and for the development).
                              So, we need to replace all possible dependencies to the individual modules to that merged
                              module when compiling for J2CL. -->
                             <dependencyReplacement>
@@ -758,7 +758,7 @@
                             <arg>--enable-url-protocols=webfx-css</arg>
                         </nativeImageArgs>
                         <runtimeArgs>
-                            <!-- Workaround for "No route to host" issue on iOS with IPv6 domains -->
+                            <!-- Workaround for the "No route to host" issue on iOS with IPv6 domains -->
                             <arg>-Djava.net.preferIPv4Stack=true</arg>
                         </runtimeArgs>
                         <!-- Release configuration for GitHub workflows -->
@@ -867,7 +867,7 @@
                     <artifactId>teavm-maven-plugin</artifactId>
                     <version>${plugin.teavm.version}</version>
                     <dependencies>
-                        <!-- This dependency is required by TeaVM to emulate subset of Java class library -->
+                        <!-- This dependency is required by TeaVM to emulate a subset of Java class library -->
                         <dependency>
                             <groupId>org.teavm</groupId>
                             <artifactId>teavm-classlib</artifactId>
@@ -893,9 +893,9 @@
                                 <minifying>${plugin.teavm.param.minifying}</minifying>
                                 <!-- Whether TeaVM should produce debug information for its built-in debugger -->
                                 <debugInformationGenerated>${plugin.teavm.param.debug}</debugInformationGenerated>
-                                <!-- Whether TeaVM should produce source maps file -->
+                                <!-- Whether TeaVM should produce the source maps file -->
                                 <sourceMapsGenerated>${plugin.teavm.param.debug}</sourceMapsGenerated>
-                                <!-- Whether TeaVM should also put source files into output directory, for compatibility with source maps -->
+                                <!-- Whether TeaVM should also put source files into the output directory, for compatibility with source maps -->
                                 <sourceFilesCopied>${plugin.teavm.param.debug}</sourceFilesCopied>
                             </configuration>
                         </execution>
@@ -927,7 +927,7 @@
 
     <profiles>
 
-        <!-- profile to compile the java code into javascript using GWT -->
+        <!-- profile to compile the java code into JavaScript using GWT -->
         <profile>
             <id>gwt-compile</id>
             <activation>
@@ -936,6 +936,56 @@
             <properties>
                 <plugin.gwt.param.skipCompilation>false</plugin.gwt.param.skipCompilation>
             </properties>
+        </profile>
+
+        <!-- profile to compile the java code into JavaScript using GWT -->
+        <profile>
+            <id>gwt-dev</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <plugin.gwt.param.draftCompile>true</plugin.gwt.param.draftCompile>
+                <plugin.gwt.param.style>PRETTY</plugin.gwt.param.style>
+                <plugin.gwt.param.optimize>0</plugin.gwt.param.optimize>
+            </properties>
+        </profile>
+
+        <!-- profile to generate the source maps when invoking GWT -->
+        <profile>
+            <id>gwt-sourcemaps</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>net.ltgt.gwt.maven</groupId>
+                            <artifactId>gwt-maven-plugin</artifactId>
+                            <configuration>
+                                <compilerArgs>
+                                    <arg>-setProperty</arg>
+                                    <arg>compiler.useSourceMaps=true</arg>
+                                    <!-- not sure about this flag
+                                    <arg>-setProperty</arg>
+                                    <arg>compiler.useSymbolMaps=true</arg>
+                                    -->
+                                    <!-- this asks GWT to copy the java source files in a src folder, but not necessary
+                                         in the end because we embed them directly in the source maps with the
+                                         configuration property compiler.embedSourceMaps = true in module.gwt.xml
+                                    <arg>-saveSource</arg>
+                                    <arg>-saveSourceOutput</arg>
+                                    <arg>${project.build.directory}/gwt-sourcemaps</arg>
+                                    -->
+                                </compilerArgs>
+                                <!-- Asking to put the source maps directly in the webapp (rather than in gwt/deploy) -->
+                                <deploy>${project.build.directory}/${project.build.finalName}</deploy>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
         </profile>
 
         <profile>
@@ -975,7 +1025,7 @@
         </profile>
 
         <!-- Profile to automatically include the WebFX Maven plugin on WebFX modules -->
-        <!-- Note: the export goal is called by default during package phase. Other goals must be called explicitly. -->
+        <!-- Note: the 'export' goal is called by default during the package phase. Other goals must be called explicitly. -->
         <profile>
             <id>auto-plugin-webfx</id>
             <!-- We recognize a WebFX module by the presence of a webfx.xml file -->
@@ -990,7 +1040,7 @@
                         <groupId>dev.webfx</groupId>
                         <artifactId>webfx-maven-plugin</artifactId>
                         <!-- Automatically exports webfx.xml as an artifact that will be attached to the Maven repository -->
-                        <!-- This export is necessary only when deploying a WebFX library to ensure webfx.xml is up-to-date -->
+                        <!-- This export is necessary only when deploying a WebFX library to ensure webfx.xml is up to date -->
                         <executions>
                             <execution>
                                 <id>export-webfx-xml</id>
@@ -1006,7 +1056,7 @@
         </profile>
 
         <!-- Profile to automatically include the GWT Maven plugin on GWT executable modules -->
-        <!-- Note: the compile goal is called by default but also skipped by default, unless gwt-compile profile is activated -->
+        <!-- Note: the 'compile' goal is called by default but also skipped by default, unless the gwt-compile profile is activated -->
         <profile>
             <id>auto-plugin-gwt</id>
             <!-- We recognize an executable gwt module by the presence of a GWT module file -->
@@ -1017,7 +1067,7 @@
             </activation>
             <build>
                 <plugins>
-                    <!-- Calling the GWT maven plugin to compile the gwt module into javascript -->
+                    <!-- Calling the GWT maven plugin to compile the gwt module into JavaScript -->
                     <plugin>
                         <groupId>net.ltgt.gwt.maven</groupId>
                         <artifactId>gwt-maven-plugin</artifactId>
@@ -1027,7 +1077,7 @@
         </profile>
 
         <!-- Profile to automatically include the GluonFX Maven plugin on Gluon executable modules -->
-        <!-- Note: No goals is called by default. Goals must be called explicitly -->
+        <!-- Note: No goal is called by default. Goals must be called explicitly -->
         <profile>
             <id>auto-plugin-gluon</id>
             <!-- We recognize an executable gluon module by the presence of a GraalVM conf folder -->
@@ -1055,8 +1105,8 @@
             </activation>
             <build>
                 <resources>
-                    <!-- Moving the webfx sources (such as conf/) in the sources artifact (will be used by WebFX CLI) -->
-                    <!-- To do that, we just move them under META-INF (will be also in build artifact despite not necessary) -->
+                    <!-- Moving the webfx sources (such as conf/) in the source artifact (will be used by WebFX CLI) -->
+                    <!-- To do that, we just move them under META-INF (will be also in the build artifact despite not necessary) -->
                     <resource>
                         <directory>src/main/webfx</directory>
                         <targetPath>META-INF/webfx</targetPath>
