@@ -32,5 +32,5 @@ jobs:
       - name: Deploy this repository
         run: mvn -B -P '!gwt-compile,!javafx-fatjar,!javapackager' deploy
         env:
-          SONATYPE_USERNAME: ${{ secrets.SONATYPE_CENTRAL_USERNAME }}
-          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_CENTRAL_PASSWORD }}
+          SONATYPE_CENTRAL_USERNAME: ${{ secrets.SONATYPE_CENTRAL_USERNAME }}
+          SONATYPE_CENTRAL_PASSWORD: ${{ secrets.SONATYPE_CENTRAL_PASSWORD }}
