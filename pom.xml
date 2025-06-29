@@ -75,6 +75,9 @@
         <plugin.shade.version>3.5.0</plugin.shade.version>
         <plugin.enforcer.version>3.3.0</plugin.enforcer.version>
 
+        <!-- New way to deploy snapshots in Maven Central using sonatype plugin -->
+        <plugin.sonatype.central.publish>0.8.0</plugin.sonatype.central.publish>
+
         <!-- Other third-party plugins versions -->
         <plugin.buildhelper.version>3.3.0</plugin.buildhelper.version>
         <plugin.javapackager.version>1.7.6</plugin.javapackager.version>
@@ -351,10 +354,11 @@
     <distributionManagement>
 
         <!-- Repository to use to deploy official webfx libraries -->
+        <!-- Was old OSSRH repo now deprecated and replaced by central-publishing-maven-plugin
         <snapshotRepository>
-            <id>webfx-sonatype-deploy</id> <!-- server username and password must be set in settings.xml -->
+            <id>webfx-sonatype-deploy</id> &lt;!&ndash; server username and password must be set in settings.xml &ndash;&gt;
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
+        </snapshotRepository>-->
 
         <!-- This section is required for building site with mvn site:stage -->
         <site>
@@ -583,10 +587,10 @@
                  *****************************
                 -->
                 <plugin>
-<!--
-                    <groupId>com.vertispan.j2cl</groupId>
-                    <artifactId>j2cl-maven-plugin</artifactId>
--->                 <!-- Temporarily replaced with the version deployed in webfx repo (until vertispan PR is merged and published) -->
+                    <!--
+                                        <groupId>com.vertispan.j2cl</groupId>
+                                        <artifactId>j2cl-maven-plugin</artifactId>
+                    -->                 <!-- Temporarily replaced with the version deployed in webfx repo (until vertispan PR is merged and published) -->
                     <groupId>dev.webfx</groupId>
                     <artifactId>j2cl-maven-plugin-webfx</artifactId>
                     <version>${vertispan.j2cl.plugin.version}</version>
@@ -913,14 +917,36 @@
                     <version>${webfx.version}</version>
                 </plugin>
 
+                <!--
+                 ********************************************
+                 * Sonatype Maven Central publishing plugin *
+                 ********************************************
+                 -->
+                <plugin>
+                    <groupId>org.sonatype.central</groupId>
+                    <artifactId>central-publishing-maven-plugin</artifactId>
+                    <version>${plugin.sonatype.central.publish}</version>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <publishingServerId>webfx-sonatype-central-deploy</publishingServerId>
+                    </configuration>
+                </plugin>
+
             </plugins>
         </pluginManagement>
 
-        <!-- Checking the Maven version -->
         <plugins>
+            <!-- Checking the Maven version -->
             <plugin>
                 <artifactId>maven-enforcer-plugin</artifactId>
             </plugin>
+
+            <!-- Required to list the new Sonatype plugin here to deploy WebFX snapshots on Maven Central -->
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+            </plugin>
+
         </plugins>
 
     </build>
