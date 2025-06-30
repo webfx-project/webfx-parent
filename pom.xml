@@ -332,7 +332,7 @@
         <!-- Required to get the WebFX Maven plugin SNAPSHOT version -->
         <pluginRepository>
             <id>webfx-plugin-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <url>https://central.sonatype.com/repository/maven-snapshots/</url>
             <releases><enabled>false</enabled></releases>
             <snapshots><enabled>true</enabled></snapshots>
         </pluginRepository>
