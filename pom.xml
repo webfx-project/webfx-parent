@@ -353,12 +353,12 @@
 
     <distributionManagement>
 
-        <!-- Repository to use to deploy webfx libraries to OSSRH (now in staging mode) -->
-        <!-- TODO: remove and replace by central-publishing-maven-plugin when bug preventing webfx.xml to be published is fixed -->
+        <!-- Repository to use to deploy official webfx libraries -->
+        <!-- Was old OSSRH repo now deprecated and replaced by central-publishing-maven-plugin
         <snapshotRepository>
-            <id>webfx-sonatype-central-deploy</id> <!-- server username and password must be set in settings.xml -->
-            <url>https://ossrh-staging-api.central.sonatype.com/content/repositories/snapshots</url>
-        </snapshotRepository>
+            <id>webfx-sonatype-deploy</id> &lt;!&ndash; server username and password must be set in settings.xml &ndash;&gt;
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>-->
 
         <!-- This section is required for building site with mvn site:stage -->
         <site>
@@ -910,12 +910,10 @@
             </plugin>
 
             <!-- Required to list the new Sonatype plugin here to deploy WebFX snapshots on Maven Central -->
-            <!-- Commented due to central-publishing-maven-plugin bug for deploying webfx.xml TODO: uncomment once bug is fixed
             <plugin>
                 <groupId>org.sonatype.central</groupId>
                 <artifactId>central-publishing-maven-plugin</artifactId>
             </plugin>
-            -->
 
         </plugins>
 
