@@ -122,6 +122,8 @@
 
         <maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ss'.000'X</maven.build.timestamp.format>
 
+        <webfx.meta.environment>development</webfx.meta.environment>
+
     </properties>
 
     <dependencyManagement>
@@ -926,7 +928,7 @@
                 <filtering>true</filtering>
                 <includes>
                     <include>public/index.html</include> <!-- because of main.css?v=${maven.build.timestamp} to force CSS to reload on each new build -->
-                    <include>dev/webfx/platform/meta/exe/exe.properties</include> <!-- because of mavenBuildTimestamp=${maven.build.timestamp} -->
+                    <include>dev/webfx/platform/meta/exe/exe.properties</include> <!-- because of mavenBuildTimestamp=${maven.build.timestamp} and environment=${webfx.meta.environment} -->
                 </includes>
             </resource>
             <!-- 2) Additional copy of the sources (required for the J2CL plugin to work properly) -->
@@ -1010,6 +1012,7 @@
                 <plugin.gluonfx.param.target>host</plugin.gluonfx.param.target>
             </properties>
         </profile>
+
         <profile>
             <id>gluon-ios</id>
             <properties>
@@ -1133,6 +1136,26 @@
                     </resource>
                 </resources>
             </build>
+        </profile>
+
+        <profile>
+            <id>production</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <webfx.meta.environment>production</webfx.meta.environment>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>staging</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <webfx.meta.environment>staging</webfx.meta.environment>
+            </properties>
         </profile>
 
     </profiles>
