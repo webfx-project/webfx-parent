@@ -1091,6 +1091,20 @@
                         <groupId>net.ltgt.gwt.maven</groupId>
                         <artifactId>gwt-maven-plugin</artifactId>
                     </plugin>
+                    <!-- Also calling the WebFX maven plugin to generate the PWA script -->
+                    <plugin>
+                        <groupId>dev.webfx</groupId>
+                        <artifactId>webfx-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>pwa</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>pwa</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
