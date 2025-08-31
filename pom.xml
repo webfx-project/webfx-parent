@@ -56,7 +56,7 @@
         <teavm.version>0.11.0</teavm.version> <!-- Unified version for TeaVM modules and TeaVM Maven plugin -->
 
         <!-- Vert.x version (used for -vertx WebFX modules, including final -vertx application executable modules) -->
-        <vertx.version>5.0.1</vertx.version>
+        <vertx.version>5.0.3</vertx.version>
 
         <!-- Maven minimum required version -->
         <maven.min.version>3.3.1</maven.min.version>
@@ -119,16 +119,9 @@
         <plugin.javapackager.organizationUrl>https://webfx.dev</plugin.javapackager.organizationUrl>
         <plugin.javapackager.organizationEmail>info@webfx.dev</plugin.javapackager.organizationEmail>
 
-        <application.name>${project.name}</application.name>
-        <application.version>${project.version}</application.version>
-        <!-- Build number property (should be set by Jenkins server each time a new build is started) -->
-        <!-- Will be passed to GWT compiler so that the java code can get its value using System.getProperty("build.number") -->
-        <application.build.number>0</application.build.number>
-        <application.build.tool>MAVEN</application.build.tool>
-        <!-- Build timestamp property (automatically set using maven but can be overridden using Jenkins) -->
-        <!-- Will be passed to GWT compiler so that the java code can get its value using System.getProperty("build.timestamp") -->
-        <application.build.timestamp>${maven.build.timestamp}</application.build.timestamp>
         <maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ss'.000'X</maven.build.timestamp.format>
+
+        <webfx.meta.environment>development</webfx.meta.environment>
 
     </properties>
 
@@ -934,7 +927,7 @@
                 <filtering>true</filtering>
                 <includes>
                     <include>public/index.html</include> <!-- because of main.css?v=${maven.build.timestamp} to force CSS to reload on each new build -->
-                    <include>dev/webfx/platform/meta/exe/exe.properties</include> <!-- because of mavenBuildTimestamp=${maven.build.timestamp} -->
+                    <include>dev/webfx/platform/meta/exe/exe.properties</include> <!-- because of mavenBuildTimestamp=${maven.build.timestamp} and environment=${webfx.meta.environment} -->
                 </includes>
             </resource>
             <!-- 2) Additional copy of the sources (required for the J2CL plugin to work properly) -->
@@ -1018,6 +1011,7 @@
                 <plugin.gluonfx.param.target>host</plugin.gluonfx.param.target>
             </properties>
         </profile>
+
         <profile>
             <id>gluon-ios</id>
             <properties>
@@ -1101,6 +1095,20 @@
                         <groupId>net.ltgt.gwt.maven</groupId>
                         <artifactId>gwt-maven-plugin</artifactId>
                     </plugin>
+                    <!-- Also calling the WebFX maven plugin to generate the PWA script -->
+                    <plugin>
+                        <groupId>dev.webfx</groupId>
+                        <artifactId>webfx-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>pwa</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>pwa</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
@@ -1146,6 +1154,26 @@
                     </resource>
                 </resources>
             </build>
+        </profile>
+
+        <profile>
+            <id>production</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <webfx.meta.environment>production</webfx.meta.environment>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>staging</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <webfx.meta.environment>staging</webfx.meta.environment>
+            </properties>
         </profile>
 
     </profiles>
