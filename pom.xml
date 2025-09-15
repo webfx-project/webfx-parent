@@ -50,7 +50,7 @@
         <jsinterop.annotations.version>2.0.2</jsinterop.annotations.version> <!-- Now this dependency can be explicit in GWT source modules -->
 
         <!-- GWT-time version (GWT library to emulate java.time - not supported by default by GWT) -->
-        <gwttime.version>2.0.11</gwttime.version>
+        <gwttime.version>2.0.12</gwttime.version>
 
         <!-- TeaVM version (used for -teavm WebFX modules, including future final -teavm application executable modules) -->
         <teavm.version>0.11.0</teavm.version> <!-- Unified version for TeaVM modules and TeaVM Maven plugin -->
