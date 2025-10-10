@@ -45,7 +45,7 @@
         <tbroyer.gwt.plugin.version>1.1.0</tbroyer.gwt.plugin.version>
 
         <!-- Elemental2 version used together with GWT -->
-        <elemental2.version>1.2.1</elemental2.version>
+        <elemental2.version>1.2.3</elemental2.version>
         <jsinterop.base.version>1.0.1</jsinterop.base.version> <!-- Since elemental2 1.2.1 it is necessary to explicitly set jsinterop version, otherwise GWT compilation fails -->
         <jsinterop.annotations.version>2.0.2</jsinterop.annotations.version> <!-- Now this dependency can be explicit in GWT source modules -->
 
@@ -53,7 +53,7 @@
         <gwttime.version>2.0.12</gwttime.version>
 
         <!-- TeaVM version (used for -teavm WebFX modules, including future final -teavm application executable modules) -->
-        <teavm.version>0.11.0</teavm.version> <!-- Unified version for TeaVM modules and TeaVM Maven plugin -->
+        <teavm.version>0.13.0-SNAPSHOT</teavm.version> <!-- Unified version for TeaVM modules and TeaVM Maven plugin -->
 
         <!-- Vert.x version (used for -vertx WebFX modules, including final -vertx application executable modules) -->
         <vertx.version>5.0.4</vertx.version>
@@ -87,11 +87,6 @@
         <plugin.jflex.version>1.9.1</plugin.jflex.version>
         <plugin.teavm.version>${teavm.version}</plugin.teavm.version>
 
-        <plugin.teavm.param.mainClass>TBD</plugin.teavm.param.mainClass>
-        <plugin.teavm.param.targetType>JAVASCRIPT</plugin.teavm.param.targetType>
-        <plugin.teavm.param.minifying>true</plugin.teavm.param.minifying>
-        <plugin.teavm.param.debug>false</plugin.teavm.param.debug>
-
         <!-- Plugin parameters with default values or set to TBD (To Be Defined) by any child module using the plugin -->
         <plugin.webfx.param.export-phase>deploy</plugin.webfx.param.export-phase> <!-- can be set to verify on the dev machine for testing before deployment -->
         <plugin.compiler.param.exclude></plugin.compiler.param.exclude>
@@ -102,15 +97,28 @@
         <plugin.dependency.param.copy-libs.phase>validate</plugin.dependency.param.copy-libs.phase>
         <plugin.shade.param.fat.phase>package</plugin.shade.param.fat.phase>
         <plugin.site.param.topSiteURL>https://site.webfx.dev</plugin.site.param.topSiteURL>
-        <plugin.j2cl.compilationLevel>ADVANCED</plugin.j2cl.compilationLevel>
-        <plugin.j2cl.enableSourcemaps>false</plugin.j2cl.enableSourcemaps>
+
         <plugin.gwt.param.skipCompilation>true</plugin.gwt.param.skipCompilation>
         <plugin.gwt.param.draftCompile>false</plugin.gwt.param.draftCompile>
         <plugin.gwt.param.style>OBF</plugin.gwt.param.style>
         <plugin.gwt.param.optimize>9</plugin.gwt.param.optimize>
         <plugin.gwt.param.module>${project.artifactId}</plugin.gwt.param.module>
+
+        <plugin.j2cl.compilationLevel>ADVANCED</plugin.j2cl.compilationLevel>
+        <plugin.j2cl.enableSourcemaps>false</plugin.j2cl.enableSourcemaps>
+
+        <plugin.teavm.param.mainClass>${webfx.mainClass}</plugin.teavm.param.mainClass>
+        <plugin.teavm.param.targetType>JAVASCRIPT</plugin.teavm.param.targetType>
+        <plugin.teavm.param.optimizationLevel>ADVANCED</plugin.teavm.param.optimizationLevel>
+        <plugin.teavm.param.incremental>false</plugin.teavm.param.incremental>
+        <plugin.teavm.param.minifying>true</plugin.teavm.param.minifying>
+        <plugin.teavm.param.sourceMapsGenerated>false</plugin.teavm.param.sourceMapsGenerated>
+        <plugin.teavm.param.sourceFilesCopied>false</plugin.teavm.param.sourceFilesCopied>
+        <plugin.teavm.param.execution.phase>none</plugin.teavm.param.execution.phase>
+
         <plugin.gluonfx.param.target>TBD</plugin.gluonfx.param.target>
         <plugin.gluonfx.param.mainClass>${webfx.mainClass}</plugin.gluonfx.param.mainClass>
+
         <plugin.javapackager.mainClass>${webfx.mainClass}</plugin.javapackager.mainClass>
         <plugin.javapackager.runnableJar>${project.build.directory}/${project.artifactId}-${project.version}-fat.jar</plugin.javapackager.runnableJar>
         <plugin.javapackager.name>WebFXApp</plugin.javapackager.name>
@@ -254,6 +262,16 @@
             <dependency>
                 <groupId>org.teavm</groupId>
                 <artifactId>teavm-jso-apis</artifactId>
+                <version>${teavm.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.teavm</groupId>
+                <artifactId>teavm-classlib</artifactId>
+                <version>${teavm.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.teavm</groupId>
+                <artifactId>teavm-core</artifactId>
                 <version>${teavm.version}</version>
             </dependency>
 
@@ -831,21 +849,13 @@
                     <groupId>org.teavm</groupId>
                     <artifactId>teavm-maven-plugin</artifactId>
                     <version>${plugin.teavm.version}</version>
-                    <dependencies>
-                        <!-- This dependency is required by TeaVM to emulate a subset of Java class library -->
-                        <dependency>
-                            <groupId>org.teavm</groupId>
-                            <artifactId>teavm-classlib</artifactId>
-                            <version>${plugin.teavm.version}</version>
-                        </dependency>
-                    </dependencies>
                     <executions>
                         <execution>
-                            <id>TeaVm-Compile</id>
+                            <id>TeaVM-Compile</id>
                             <goals>
                                 <goal>compile</goal>
                             </goals>
-                            <phase>process-classes</phase>
+                            <phase>${plugin.teavm.param.execution.phase}</phase>
                             <configuration>
                                 <targetType>${plugin.teavm.param.targetType}</targetType>
                                 <!-- Directory where TeaVM should put generated files. This configuration conforms to the settings of the WAR plugin -->
@@ -853,15 +863,24 @@
 
                                 <!-- Main class, containing static void main(String[]) -->
                                 <mainClass>${plugin.teavm.param.mainClass}</mainClass>
+                                <entryPointName>main</entryPointName>
+                                <optimizationLevel>${plugin.teavm.param.optimizationLevel}</optimizationLevel>
+                                <!-- Specifying which module scopes in the dependencies we include in the TeaVM compilation -->
+                                <compileScopes>
+                                    <!-- Standard scopes supported by TeaVM -->
+                                    <scope>compile</scope>
+                                    <scope>provided</scope>
+                                    <scope>system</scope>
+                                    <!-- We also consider runtime scope in WebFX (ex: webfx-platform-ast-json-plugin) -->
+                                    <scope>runtime</scope>
+                                </compileScopes>
 
                                 <!-- Whether TeaVM should produce minified JavaScript. Can reduce JavaScript file size more than two times -->
                                 <minifying>${plugin.teavm.param.minifying}</minifying>
-                                <!-- Whether TeaVM should produce debug information for its built-in debugger -->
-                                <debugInformationGenerated>${plugin.teavm.param.debug}</debugInformationGenerated>
                                 <!-- Whether TeaVM should produce the source maps file -->
-                                <sourceMapsGenerated>${plugin.teavm.param.debug}</sourceMapsGenerated>
+                                <sourceMapsGenerated>${plugin.teavm.param.sourceMapsGenerated}</sourceMapsGenerated>
                                 <!-- Whether TeaVM should also put source files into the output directory, for compatibility with source maps -->
-                                <sourceFilesCopied>${plugin.teavm.param.debug}</sourceFilesCopied>
+                                <sourceFilesCopied>${plugin.teavm.param.sourceFilesCopied}</sourceFilesCopied>
                             </configuration>
                         </execution>
                     </executions>
@@ -1006,6 +1025,42 @@
             </build>
         </profile>
 
+        <!-- profile to compile the java code into JavaScript using TeaVM -->
+        <profile>
+            <id>teavm</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <plugin.teavm.param.execution.phase>process-classes</plugin.teavm.param.execution.phase>
+            </properties>
+        </profile>
+
+        <!-- profile to compile the java code into JavaScript using GWT -->
+        <profile>
+            <id>teavm-dev</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <plugin.teavm.param.optimizationLevel>SIMPLE</plugin.teavm.param.optimizationLevel>
+                <plugin.teavm.param.minifying>false</plugin.teavm.param.minifying>
+                <plugin.teavm.param.incremental>true</plugin.teavm.param.incremental>
+            </properties>
+        </profile>
+
+        <!-- profile to generate the source maps when invoking GWT -->
+        <profile>
+            <id>teavm-sourcemaps</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <plugin.teavm.param.sourceMapsGenerated>true</plugin.teavm.param.sourceMapsGenerated>
+                <plugin.teavm.param.sourceFilesCopied>true</plugin.teavm.param.sourceFilesCopied>
+            </properties>
+        </profile>
+
         <profile>
             <id>gluon-desktop</id>
             <properties>
@@ -1107,6 +1162,124 @@
                     </plugin>
                 </plugins>
             </build>
+            <!-- The elemental2 dependencies generated by the CLI are with <scope>provided</scope> to allow their possible
+                 replacement with the teavm polyfill when these modules are later compiled by TeaVM. But when it goes to
+                 GWT, we need to provide these actual elemental2 dependencies for a successful GWT compilation. -->
+            <dependencies>
+                <dependency>
+                    <groupId>com.google.elemental2</groupId>
+                    <artifactId>elemental2-core</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>com.google.elemental2</groupId>
+                    <artifactId>elemental2-dom</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>com.google.elemental2</groupId>
+                    <artifactId>elemental2-media</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>com.google.elemental2</groupId>
+                    <artifactId>elemental2-promise</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>com.google.elemental2</groupId>
+                    <artifactId>elemental2-svg</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>com.google.elemental2</groupId>
+                    <artifactId>elemental2-webgl</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>com.google.elemental2</groupId>
+                    <artifactId>elemental2-webstorage</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <!-- Profile to automatically include the TeaVM Maven plugin on TeaVM executable modules -->
+        <profile>
+            <id>auto-plugin-teavm</id>
+            <!-- We recognize an executable teavm module by the presence of a teavm index.html -->
+            <activation>
+                <file>
+                    <exists>src/main/java/dev/webfx/platform/resource/teavm</exists>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.teavm</groupId>
+                        <artifactId>teavm-maven-plugin</artifactId>
+                    </plugin>
+
+                    <!-- Copy public resources into TeaVM output -->
+                    <plugin>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>copy-public-resources</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${project.build.directory}/teavm</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>${project.basedir}/src/main/resources/public</directory>
+                                            <filtering>true</filtering>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+            <!-- These dependencies used to be listed inside the TeaVM plugin, but since version 0.13 they need to be
+                 outside. -->
+            <dependencies>
+                <dependency>
+                    <groupId>dev.webfx</groupId>
+                    <artifactId>webfx-platform-teavm-javabase-emul</artifactId>
+                    <version>${webfx.version}</version>
+                </dependency>
+                <!-- These dependencies are required by TeaVM to emulate a subset of Java class library -->
+                <dependency>
+                    <groupId>org.teavm</groupId>
+                    <artifactId>teavm-classlib</artifactId>
+                    <version>${teavm.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.teavm</groupId>
+                    <artifactId>teavm-core</artifactId>
+                    <version>${teavm.version}</version>
+                </dependency>
+                <!-- The polyfill which is required to compile WebFX elemental2 modules with TeaVM -->
+                <dependency>
+                    <groupId>dev.webfx</groupId>
+                    <artifactId>webfx-platform-teavm-elemental2-polyfill</artifactId>
+                    <version>${webfx.version}</version>
+                </dependency>
+                <!-- The registry for javafx graphics, controls & media (should they be in the executable module instead?) -->
+                <dependency>
+                    <groupId>dev.webfx</groupId>
+                    <artifactId>webfx-kit-javafxgraphics-registry-elemental2</artifactId>
+                    <version>0.1.0-SNAPSHOT</version>
+                </dependency>
+                <dependency>
+                    <groupId>dev.webfx</groupId>
+                    <artifactId>webfx-kit-javafxcontrols-registry-elemental2</artifactId>
+                    <version>0.1.0-SNAPSHOT</version>
+                </dependency>
+                <dependency>
+                    <groupId>dev.webfx</groupId>
+                    <artifactId>webfx-kit-javafxmedia-registry-elemental2</artifactId>
+                    <version>0.1.0-SNAPSHOT</version>
+                </dependency>
+            </dependencies>
         </profile>
 
         <!-- Profile to automatically include the GluonFX Maven plugin on Gluon executable modules -->
