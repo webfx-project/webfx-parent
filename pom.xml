@@ -88,7 +88,6 @@
         <plugin.teavm.version>${teavm.version}</plugin.teavm.version>
 
         <!-- Plugin parameters with default values or set to TBD (To Be Defined) by any child module using the plugin -->
-        <plugin.webfx.param.export-phase>deploy</plugin.webfx.param.export-phase> <!-- can be set to verify on the dev machine for testing before deployment -->
         <plugin.compiler.param.exclude></plugin.compiler.param.exclude>
         <plugin.dependency.param.unpack-sources.phase>validate</plugin.dependency.param.unpack-sources.phase>
         <plugin.dependency.param.unpack-classes.phase>validate</plugin.dependency.param.unpack-classes.phase>
@@ -1111,7 +1110,12 @@
         </profile>
 
         <!-- Profile to automatically include the WebFX Maven plugin on WebFX modules -->
-        <!-- Note: the 'export' goal is called by default during the package phase. Other goals must be called explicitly. -->
+        <!-- Note: the 'export' goal is called automatically during the `install` phase, to generate the webfx.xml export
+             before the central-publishing-maven-plugin is called and deploy it (unfortunately, webfx.xml is generated
+             too late if we call webfx-maven-plugin during the `deploy` phase). However, the webfx.xml export is not
+             necessary (and even not wished as time-consuming) if the final goal is just `install` and not `deploy`.
+             But we can't detect this case here from Maven, so what happens is that we still call webfx-maven-plugin,
+             but it will quickly detect and skip the export in this case. -->
         <profile>
             <id>auto-plugin-webfx</id>
             <!-- We recognize a WebFX module by the presence of a webfx.xml file -->
@@ -1130,7 +1134,7 @@
                         <executions>
                             <execution>
                                 <id>export-webfx-xml</id>
-                                <phase>${plugin.webfx.param.export-phase}</phase>
+                                <phase>install</phase>
                                 <goals>
                                     <goal>export</goal>
                                 </goals>
