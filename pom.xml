@@ -53,7 +53,7 @@
         <gwttime.version>2.0.12</gwttime.version>
 
         <!-- TeaVM version (used for -teavm WebFX modules, including future final -teavm application executable modules) -->
-        <teavm.version>0.13.0-dev-8</teavm.version> <!-- Unified version for TeaVM modules and TeaVM Maven plugin -->
+        <teavm.version>0.13.0-dev-9</teavm.version> <!-- Unified version for TeaVM modules and TeaVM Maven plugin -->
 
         <!-- Vert.x version (used for -vertx WebFX modules, including final -vertx application executable modules) -->
         <vertx.version>5.0.4</vertx.version>
@@ -108,12 +108,15 @@
 
         <plugin.teavm.param.mainClass>${webfx.mainClass}</plugin.teavm.param.mainClass>
         <plugin.teavm.param.targetType>JAVASCRIPT</plugin.teavm.param.targetType>
+        <plugin.teavm.param.targetDirectory>${project.build.directory}/teavm</plugin.teavm.param.targetDirectory>
+        <plugin.teavm.param.entryPointName>main</plugin.teavm.param.entryPointName>
         <plugin.teavm.param.optimizationLevel>ADVANCED</plugin.teavm.param.optimizationLevel>
         <plugin.teavm.param.incremental>false</plugin.teavm.param.incremental>
         <plugin.teavm.param.minifying>true</plugin.teavm.param.minifying>
         <plugin.teavm.param.sourceMapsGenerated>false</plugin.teavm.param.sourceMapsGenerated>
         <plugin.teavm.param.sourceFilesCopied>false</plugin.teavm.param.sourceFilesCopied>
-        <plugin.teavm.param.execution.phase>none</plugin.teavm.param.execution.phase>
+        <plugin.teavm.param.execution.compile.phase>none</plugin.teavm.param.execution.compile.phase>
+        <plugin.teavm.param.execution.wasm-runtime.phase>none</plugin.teavm.param.execution.wasm-runtime.phase>
 
         <plugin.gluonfx.param.target>TBD</plugin.gluonfx.param.target>
         <plugin.gluonfx.param.mainClass>${webfx.mainClass}</plugin.gluonfx.param.mainClass>
@@ -862,19 +865,19 @@
                     <version>${plugin.teavm.version}</version>
                     <executions>
                         <execution>
-                            <id>TeaVM-Compile</id>
+                            <id>teavm-compile</id>
                             <goals>
                                 <goal>compile</goal>
                             </goals>
-                            <phase>${plugin.teavm.param.execution.phase}</phase>
+                            <phase>${plugin.teavm.param.execution.compile.phase}</phase>
                             <configuration>
                                 <targetType>${plugin.teavm.param.targetType}</targetType>
                                 <!-- Directory where TeaVM should put generated files. This configuration conforms to the settings of the WAR plugin -->
-                                <targetDirectory>${project.build.directory}/teavm/</targetDirectory>
+                                <targetDirectory>${plugin.teavm.param.targetDirectory}</targetDirectory>
 
                                 <!-- Main class, containing static void main(String[]) -->
                                 <mainClass>${plugin.teavm.param.mainClass}</mainClass>
-                                <entryPointName>main</entryPointName>
+                                <entryPointName>${plugin.teavm.param.entryPointName}</entryPointName>
                                 <optimizationLevel>${plugin.teavm.param.optimizationLevel}</optimizationLevel>
                                 <!-- Specifying which module scopes in the dependencies we include in the TeaVM compilation -->
                                 <compileScopes>
@@ -892,6 +895,16 @@
                                 <sourceMapsGenerated>${plugin.teavm.param.sourceMapsGenerated}</sourceMapsGenerated>
                                 <!-- Whether TeaVM should also put source files into the output directory, for compatibility with source maps -->
                                 <sourceFilesCopied>${plugin.teavm.param.sourceFilesCopied}</sourceFilesCopied>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>teavm-bootstrap</id>
+                            <goals>
+                                <goal>copy-webassembly-gc-runtime</goal>
+                            </goals>
+                            <phase>${plugin.teavm.param.execution.wasm-runtime.phase}</phase>
+                            <configuration>
+                                <targetDirectory>${plugin.teavm.param.targetDirectory}</targetDirectory>
                             </configuration>
                         </execution>
                     </executions>
@@ -1043,7 +1056,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <plugin.teavm.param.execution.phase>process-classes</plugin.teavm.param.execution.phase>
+                <plugin.teavm.param.execution.compile.phase>process-classes</plugin.teavm.param.execution.compile.phase>
             </properties>
         </profile>
 
@@ -1240,7 +1253,7 @@
                                     <goal>copy-resources</goal>
                                 </goals>
                                 <configuration>
-                                    <outputDirectory>${project.build.directory}/teavm</outputDirectory>
+                                    <outputDirectory>${plugin.teavm.param.targetDirectory}</outputDirectory>
                                     <resources>
                                         <resource>
                                             <directory>${project.basedir}/src/main/resources/public</directory>
@@ -1250,6 +1263,20 @@
                                 </configuration>
                             </execution>
                         </executions>
+                    </plugin>
+
+                    <!-- Configure WAR plugin to include JavaScript files generated by TeaVM -->
+                    <plugin>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <configuration>
+                            <!-- Exclude classes from WEB-INF/classes -->
+                            <packagingExcludes>WEB-INF/**/*</packagingExcludes>
+                            <webResources>
+                                <resource>
+                                    <directory>${plugin.teavm.param.targetDirectory}</directory>
+                                </resource>
+                            </webResources>
+                        </configuration>
                     </plugin>
 
                 </plugins>
@@ -1296,6 +1323,20 @@
                     <version>0.1.0-SNAPSHOT</version>
                 </dependency>
             </dependencies>
+        </profile>
+
+        <!-- profile to generate wasm instead of JavaScript -->
+        <profile>
+            <id>auto-teavm-wasm</id>
+            <activation>
+                <file> <!-- empty classes.wasm file used as a teavm wasm tag - will be overridden by actually wasm compilation in target directory -->
+                    <exists>src/main/webapp/classes.wasm</exists>
+                </file>
+            </activation>
+            <properties>
+                <plugin.teavm.param.targetType>WEBASSEMBLY_GC</plugin.teavm.param.targetType>
+                <plugin.teavm.param.execution.wasm-runtime.phase>${plugin.teavm.param.execution.compile.phase}</plugin.teavm.param.execution.wasm-runtime.phase>
+            </properties>
         </profile>
 
         <!-- Profile to automatically include the GluonFX Maven plugin on Gluon executable modules -->
