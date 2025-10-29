@@ -53,7 +53,7 @@
         <gwttime.version>2.0.12</gwttime.version>
 
         <!-- TeaVM version (used for -teavm WebFX modules, including future final -teavm application executable modules) -->
-        <teavm.version>0.13.0-dev-9</teavm.version> <!-- Unified version for TeaVM modules and TeaVM Maven plugin -->
+        <teavm.version>0.13.0-dev-11</teavm.version> <!-- Unified version for TeaVM modules and TeaVM Maven plugin -->
 
         <!-- Vert.x version (used for -vertx WebFX modules, including final -vertx application executable modules) -->
         <vertx.version>5.0.4</vertx.version>
