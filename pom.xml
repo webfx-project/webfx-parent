@@ -1280,29 +1280,22 @@
                         <artifactId>maven-war-plugin</artifactId>
                         <configuration> <!-- the CLI doesn't generate WEB-INF/web.xml -->
                             <failOnMissingWebXml>false</failOnMissingWebXml>
+                            <!-- Exclude WEB-INF from the WAR file -->
+                            <packagingExcludes>WEB-INF/**</packagingExcludes>
+                            <webResources>
+                                <resource>
+                                    <directory>${plugin.teavm.param.targetDirectory}</directory>
+                                </resource>
+                            </webResources>
                         </configuration>
                         <executions>
-                            <!-- Disabling default war execution -->
+                            <!-- Additional execution to create exploded WAR directory -->
                             <execution>
-                                <id>default-war</id>
-                                <phase>none</phase>
-                            </execution>
-                            <!-- Custom execution for the TeaVM WAR -->
-                            <execution>
-                                <id>teavm-war</id>
+                                <id>teavm-war-exploded</id>
                                 <phase>${plugin.war.param.execution.phase}</phase>
                                 <goals>
-                                    <goal>war</goal>
+                                    <goal>exploded</goal>
                                 </goals>
-                                <configuration>
-                                    <!-- Exclude WEB-INF from the WAR file -->
-                                    <packagingExcludes>WEB-INF/**</packagingExcludes>
-                                    <webResources>
-                                        <resource>
-                                            <directory>${plugin.teavm.param.targetDirectory}</directory>
-                                        </resource>
-                                    </webResources>
-                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
