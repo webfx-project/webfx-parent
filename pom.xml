@@ -1307,16 +1307,19 @@
                          The WEB-INF folder can be big and make the push fail, so it's better to delete. -->
                     <plugin>
                         <artifactId>maven-antrun-plugin</artifactId>
+                        <version>3.1.0</version>
                         <executions>
                             <execution>
                                 <id>delete-teavm-web-inf</id>
-                                <phase>${plugin.war.param.execution.phase}</phase>
+                                <!-- Doing it each time because the GitHub workflow executes other goals after TeaVM
+                                  invocation until the web push -->
+                                <phase>package</phase>
                                 <goals>
                                     <goal>run</goal>
                                 </goals>
                                 <configuration>
                                     <target>
-                                        <delete dir="${project.build.directory}/${project.build.finalName}/WEB-INF" />
+                                        <delete dir="${project.build.directory}/${project.build.finalName}/WEB-INF" verbose="true" includeemptydirs="true" />
                                     </target>
                                 </configuration>
                             </execution>
