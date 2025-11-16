@@ -53,7 +53,7 @@
         <gwttime.version>2.0.12</gwttime.version>
 
         <!-- TeaVM version (used for -teavm WebFX modules, including future final -teavm application executable modules) -->
-        <teavm.version>0.13.0</teavm.version> <!-- Unified version for TeaVM modules and TeaVM Maven plugin -->
+        <teavm.version>0.14.0-dev-1</teavm.version> <!-- Unified version for TeaVM modules and TeaVM Maven plugin -->
 
         <!-- Vert.x version (used for -vertx WebFX modules, including final -vertx application executable modules) -->
         <vertx.version>5.0.4</vertx.version>
@@ -270,6 +270,11 @@
             </dependency>
             <dependency>
                 <groupId>org.teavm</groupId>
+                <artifactId>teavm-jso-impl</artifactId>
+                <version>${teavm.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.teavm</groupId>
                 <artifactId>teavm-classlib</artifactId>
                 <version>${teavm.version}</version>
             </dependency>
@@ -350,6 +355,12 @@
             <url>https://central.sonatype.com/repository/maven-snapshots/</url>
             <releases><enabled>false</enabled></releases>
             <snapshots><enabled>true</enabled></snapshots>
+        </pluginRepository>
+
+        <!-- For TeaVM dev builds -->
+        <pluginRepository>
+            <id>teavm-dev</id>
+            <url>https://teavm.org/maven/repository</url>
         </pluginRepository>
 
     </pluginRepositories>
