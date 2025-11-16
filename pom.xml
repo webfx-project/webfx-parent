@@ -364,6 +364,12 @@
             <snapshots><enabled>false</enabled></snapshots>
         </repository>
 
+        <!-- For TeaVM dev builds -->
+        <repository>
+            <id>teavm-dev</id>
+            <url>https://teavm.org/maven/repository</url>
+        </repository>
+
     </repositories>
 
     <distributionManagement>
