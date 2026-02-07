@@ -53,7 +53,7 @@
         <gwttime.version>2.0.12</gwttime.version>
 
         <!-- TeaVM version (used for -teavm WebFX modules, including future final -teavm application executable modules) -->
-        <teavm.version>0.14.0-dev-1</teavm.version> <!-- Unified version for TeaVM modules and TeaVM Maven plugin -->
+        <teavm.version>0.14.0-dev-2</teavm.version> <!-- Unified version for TeaVM modules and TeaVM Maven plugin -->
 
         <!-- Vert.x version (used for -vertx WebFX modules, including final -vertx application executable modules) -->
         <vertx.version>5.0.7</vertx.version>
@@ -119,6 +119,12 @@
         <plugin.teavm.param.sourceFilesCopied>false</plugin.teavm.param.sourceFilesCopied>
         <plugin.teavm.param.execution.compile.phase>none</plugin.teavm.param.execution.compile.phase>
         <plugin.teavm.param.execution.wasm-runtime.phase>none</plugin.teavm.param.execution.wasm-runtime.phase>
+        <!-- additional indirect phase assignment via teavm-js profile -->
+        <plugin.teavm.param.execution.compile.phase.auto-teavm-js>none</plugin.teavm.param.execution.compile.phase.auto-teavm-js>
+        <plugin.war.param.execution.phase.auto-teavm-js>none</plugin.war.param.execution.phase.auto-teavm-js>
+        <!-- additional indirect phase assignment via teavm-wasm profile -->
+        <plugin.teavm.param.execution.compile.phase.auto-teavm-wasm>none</plugin.teavm.param.execution.compile.phase.auto-teavm-wasm>
+        <plugin.war.param.execution.phase.auto-teavm-wasm>none</plugin.war.param.execution.phase.auto-teavm-wasm>
 
         <plugin.gluonfx.param.target>TBD</plugin.gluonfx.param.target>
         <plugin.gluonfx.param.mainClass>${webfx.mainClass}</plugin.gluonfx.param.mainClass>
@@ -1002,7 +1008,11 @@
 
     <profiles>
 
-        <!-- profile to compile the java code into JavaScript using GWT -->
+        <!--========================================= User profiles ====================================================
+                              (activable by the user in the Java IDE or through mvn -P command)
+         ============================================================================================================-->
+
+        <!-- User profile to activate the compilation of xxx-gwt executable modules -->
         <profile>
             <id>gwt-compile</id>
             <activation>
@@ -1013,7 +1023,7 @@
             </properties>
         </profile>
 
-        <!-- profile to compile the java code into JavaScript using GWT -->
+        <!-- User profile to activate faster compilation of xxx-gwt executable modules during development -->
         <profile>
             <id>gwt-dev</id>
             <activation>
@@ -1026,7 +1036,7 @@
             </properties>
         </profile>
 
-        <!-- profile to generate the source maps when invoking GWT -->
+        <!-- User profile to activate the generation of the source maps together with the compilation of xxx-gwt executable modules -->
         <profile>
             <id>gwt-sourcemaps</id>
             <activation>
@@ -1063,19 +1073,33 @@
             </build>
         </profile>
 
-        <!-- profile to compile the java code into JavaScript using TeaVM -->
+        <!-- User profile to activate the compilation of xxx-teavm-js executable modules -->
         <profile>
-            <id>teavm</id>
+            <id>teavm-js</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+            <!-- This profile simply sets user-teavm-js=true to unlock the activation of the auto-teavm-js profile on xxx-teavm-js module -->
             <properties>
-                <plugin.teavm.param.execution.compile.phase>process-classes</plugin.teavm.param.execution.compile.phase>
-                <plugin.war.param.execution.phase>package</plugin.war.param.execution.phase>
+                <plugin.teavm.param.execution.compile.phase.auto-teavm-js>process-classes</plugin.teavm.param.execution.compile.phase.auto-teavm-js>
+                <plugin.war.param.execution.phase.auto-teavm-js>package</plugin.war.param.execution.phase.auto-teavm-js>
             </properties>
         </profile>
 
-        <!-- profile to compile the java code into JavaScript using GWT -->
+        <!-- User profile to activate the compilation of xxx-teavm-wasm executable modules -->
+        <profile>
+            <id>teavm-wasm</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <!-- This profile simply sets user-teavm-wasm=true to unlock the activation of the auto-teavm-wasm profile on xxx-teavm-wasm module -->
+            <properties>
+                <plugin.teavm.param.execution.compile.phase.auto-teavm-wasm>process-classes</plugin.teavm.param.execution.compile.phase.auto-teavm-wasm>
+                <plugin.war.param.execution.phase.auto-teavm-wasm>package</plugin.war.param.execution.phase.auto-teavm-wasm>
+            </properties>
+        </profile>
+
+        <!-- User profile to activate faster compilation of xxx-teavm-js and xxx-teavm-wasm executable modules during development -->
         <profile>
             <id>teavm-dev</id>
             <activation>
@@ -1088,7 +1112,7 @@
             </properties>
         </profile>
 
-        <!-- profile to generate the source maps when invoking GWT -->
+        <!-- User profile to activate the generation of the source maps together with the compilation of xxx-teavm-js and xxx-teavm-wasm executable modules -->
         <profile>
             <id>teavm-sourcemaps</id>
             <activation>
@@ -1100,6 +1124,7 @@
             </properties>
         </profile>
 
+        <!-- User profile to activate the compilation of xxx-gluon executable modules into a native desktop app (on running OS) -->
         <profile>
             <id>gluon-desktop</id>
             <properties>
@@ -1107,6 +1132,7 @@
             </properties>
         </profile>
 
+        <!-- User profile to activate the compilation of xxx-gluon executable modules into a native iOS app (running OS must be macOS) -->
         <profile>
             <id>gluon-ios</id>
             <properties>
@@ -1114,6 +1140,7 @@
             </properties>
         </profile>
 
+        <!-- User profile to activate the compilation of xxx-gluon executable modules into a native Android app (running OS must be Linux) -->
         <profile>
             <id>gluon-android</id>
             <properties>
@@ -1121,6 +1148,34 @@
             </properties>
         </profile>
 
+        <!-- User profile to activate on a production environment. Will cause Meta.isProduction() return true at runtime -->
+        <profile>
+            <id>production</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <webfx.meta.environment>production</webfx.meta.environment>
+            </properties>
+        </profile>
+
+        <!-- User profile to activate on a staging environment. Will cause Meta.isStaging() return true at runtime -->
+        <profile>
+            <id>staging</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <webfx.meta.environment>staging</webfx.meta.environment>
+            </properties>
+        </profile>
+
+
+        <!--======================================= Automatic profiles =================================================
+                            (automatically activated by module structure and user profile activation)
+         ============================================================================================================-->
+
+        <!-- Automatic profile to automatically attach sources to the project -->
         <profile>
             <id>auto-attach-sources</id>
             <activation>
@@ -1137,7 +1192,7 @@
             </build>
         </profile>
 
-        <!-- Profile to automatically include the WebFX Maven plugin on WebFX modules -->
+        <!-- Automatic profile to automatically include the WebFX Maven plugin on WebFX modules -->
         <!-- Note: the 'export' goal is called automatically during the `install` phase, to generate the webfx.xml export
              before the central-publishing-maven-plugin is called and deploy it (unfortunately, webfx.xml is generated
              too late if we call webfx-maven-plugin during the `deploy` phase). However, the webfx.xml export is not
@@ -1173,12 +1228,13 @@
             </build>
         </profile>
 
-        <!-- Profile to automatically include the GWT Maven plugin on GWT executable modules -->
+        <!-- Automatic profile to automatically invoke the GWT compiler on xxx-gwt executable modules -->
         <!-- Note: the 'compile' goal is called by default but also skipped by default, unless the gwt-compile profile is activated -->
         <profile>
             <id>auto-plugin-gwt</id>
-            <!-- We recognize an executable gwt module by the presence of a GWT module file -->
             <activation>
+                <!-- Only on appropriate modules, i.e., xxx-gwt executable modules
+                 How to recognize them? Simply by the presence of a GWT module file -->
                 <file>
                     <exists>src/main/module.gwt.xml</exists>
                 </file>
@@ -1241,10 +1297,15 @@
             </dependencies>
         </profile>
 
-        <!-- Profile to automatically include the TeaVM Maven plugin on TeaVM executable modules -->
+        <!-- Automatic profile to automatically include the TeaVM Maven plugin on TeaVM executable modules -->
+        <!-- Note: this profile sets the common configuration of the TeaVM plugin for JavaScript and WebAssembly
+             but the TeaVM compiler is really invoked only if auto-teavm-js and/or auto-teavm-wasm are also activated
+             because they set the execution phase (which is otherwise none by default) -->
         <profile>
             <id>auto-plugin-teavm</id>
-            <!-- We recognize an executable teavm module by the presence of a teavm index.html -->
+            <!-- Only on appropriate modules, i.e., xxx-teavm-js and xxx-teavm-wasm executable modules
+             How to recognize them? Simply by the presence of the dev.webfx.platform.resource.teavm package (holds
+             TeaVMJSEmbedResourcesBundle.java or TeaVMWasmEmbedResourcesBundle.java) -->
             <activation>
                 <file>
                     <exists>src/main/java/dev/webfx/platform/resource/teavm</exists>
@@ -1252,6 +1313,7 @@
             </activation>
             <build>
                 <plugins>
+                    <!-- invoking the TeaVM compiler (if the execution phase has been set by auto-teavm-js and/or auto-teavm-wasm profiles) -->
                     <plugin>
                         <groupId>org.teavm</groupId>
                         <artifactId>teavm-maven-plugin</artifactId>
@@ -1333,8 +1395,7 @@
 
                 </plugins>
             </build>
-            <!-- These dependencies used to be listed inside the TeaVM plugin, but since version 0.13 they need to be
-                 outside. -->
+            <!-- These dependencies used to be listed inside the TeaVM plugin, but since version 0.13 they need to be outside. -->
             <dependencies>
                 <dependency>
                     <groupId>dev.webfx</groupId>
@@ -1377,21 +1438,51 @@
             </dependencies>
         </profile>
 
-        <!-- profile to generate wasm instead of JavaScript -->
+        <!-- Automatic profile to invoke the JavaScript TeaVM compiler on xxx-teavm-js executable modules -->
         <profile>
-            <id>auto-teavm-wasm</id>
+            <id>auto-teavm-js</id>
             <activation>
-                <file> <!-- empty classes.wasm file used as a teavm wasm tag - will be overridden by actually wasm compilation in target directory -->
-                    <exists>src/main/webapp/classes.wasm</exists>
+                <!-- Condition 1: only on appropriate modules, i.e., xxx-teavm-js executable modules
+                 How to recognize them? Simply by the presence of the module-teavm-js file (generated by CLI) -->
+                <file>
+                    <exists>src/main/java/dev/webfx/platform/resource/teavm/TeaVMJsEmbedResourcesBundle.java</exists>
                 </file>
+                <!-- Condition 2: only if the user activated the teavm-js profile. But due to Maven limitations, it's
+                 not possible to test this condition in this activation section. Instead, this condition is indirectly
+                 fulfilled via setting the execution phase below. -->
             </activation>
             <properties>
-                <plugin.teavm.param.targetType>WEBASSEMBLY_GC</plugin.teavm.param.targetType>
+                <!-- Setting the execution phase (indirectly set by teavm-js profile if activated or to none otherwise) -->
+                <plugin.teavm.param.execution.compile.phase>${plugin.teavm.param.execution.compile.phase.auto-teavm-js}</plugin.teavm.param.execution.compile.phase>
+                <plugin.war.param.execution.phase>${plugin.war.param.execution.phase.auto-teavm-js}</plugin.war.param.execution.phase>
+                <plugin.teavm.param.targetType>JAVASCRIPT</plugin.teavm.param.targetType>
                 <plugin.teavm.param.execution.wasm-runtime.phase>${plugin.teavm.param.execution.compile.phase}</plugin.teavm.param.execution.wasm-runtime.phase>
             </properties>
         </profile>
 
-        <!-- Profile to automatically include the GluonFX Maven plugin on Gluon executable modules -->
+        <!-- Automatic profile to invoke the WebAssembly TeaVM compiler on xxx-teavm-wasm executable modules -->
+        <profile>
+            <id>auto-teavm-wasm</id>
+            <activation>
+                <!-- Condition 1: only on appropriate modules, i.e., xxx-teavm-wasm executable modules
+                 How to recognize them? Simply by the presence of the module-teavm-wasm file (generated by CLI) -->
+                <file>
+                    <exists>src/main/java/dev/webfx/platform/resource/teavm/TeaVMWasmEmbedResourcesBundle.java</exists>
+                </file>
+                <!-- Condition 2: only if the user activated the teavm-wasm profile. But due to Maven limitations, it's
+                 not possible to test this condition in this activation section. Instead, this condition is indirectly
+                 fulfilled via setting the execution phase below. -->
+            </activation>
+            <properties>
+                <!-- Setting the execution phase (indirectly set by teavm-wasm profile if activated or to none otherwise) -->
+                <plugin.teavm.param.execution.compile.phase>${plugin.teavm.param.execution.compile.phase.auto-teavm-wasm}</plugin.teavm.param.execution.compile.phase>
+                <plugin.war.param.execution.phase>${plugin.war.param.execution.phase.auto-teavm-wasm}</plugin.war.param.execution.phase>
+                <plugin.teavm.param.execution.wasm-runtime.phase>${plugin.teavm.param.execution.compile.phase}</plugin.teavm.param.execution.wasm-runtime.phase>
+                <plugin.teavm.param.targetType>WEBASSEMBLY_GC</plugin.teavm.param.targetType>
+            </properties>
+        </profile>
+
+        <!-- Automatic profile to automatically include the GluonFX Maven plugin on Gluon executable modules -->
         <!-- Note: No goal is called by default. Goals must be called explicitly -->
         <profile>
             <id>auto-plugin-gluon</id>
@@ -1411,6 +1502,7 @@
             </build>
         </profile>
 
+        <!-- Automatic profile to include the possible webfx resource directory in the source artifact -->
         <profile>
             <id>auto-src-webfx</id>
             <activation>
@@ -1432,26 +1524,6 @@
                     </resource>
                 </resources>
             </build>
-        </profile>
-
-        <profile>
-            <id>production</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <webfx.meta.environment>production</webfx.meta.environment>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>staging</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <webfx.meta.environment>staging</webfx.meta.environment>
-            </properties>
         </profile>
 
     </profiles>
